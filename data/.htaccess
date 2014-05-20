@@ -1,0 +1,6 @@
+RewriteEngine   On
+RewriteCond     %{REQUEST_FILENAME} !-f    [OR]
+RewriteCond     %{REQUEST_FILENAME} \.php$
+RewriteCond     %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ %{ENV:BASE}magl-zf2-legacy-wrapper.php [NC,L]
+

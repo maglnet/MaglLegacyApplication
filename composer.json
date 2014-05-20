@@ -1,0 +1,27 @@
+{
+    "name": "maglnet/magl-legacy-application",
+    "type": "library",
+    "description": "Provides a ZF2 module that is able to run legacy applications with the power of ZF2.",
+    "homepage": "https://github.com/maglnet/MaglLegacyApplication",
+    "license": "BSD-3",
+    "keywords": ["legacy", "legacy application", "zend framework", "zf2"],
+    "support": {
+        "source": "https://github.com/maglnet/MaglLegacyApplication",
+        "issues": "https://github.com/maglnet/MaglLegacyApplication/issues"
+    },
+    "authors": [
+        {
+            "name": "Matthias Glaub",
+            "email": "magl@magl.net",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "zendframework/zendframework": "~2.2"
+    },
+    "autoload": {
+        "classmap": ["src"],
+		"psr-0": {"MaglLegacyApplication": "src"}
+    }
+}
