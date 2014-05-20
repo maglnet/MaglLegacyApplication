@@ -25,12 +25,6 @@ Your legacy application should now run within ZF2. :)
 
 
 ## Configuration
-Have a look at the provided `config/.htaccess`, to see mod rewrite rules. 
-You could also use the rules provided by the ZF2 Skeleton Application.
-
-In your `public/index.php`: Replace `Application::run()` with `MaglLegacyApplication::run()`,
-so you can access the ZF2 application from your legacy Application by calling `MaglLegacyApplication::getApplication()`.
-
 For any SEO optimized route within your legacy application, add a route to the zend router that
 routes to legacy controller and remove the mod_rewrite rules from your `.htaccess`
 ```php
