@@ -7,6 +7,13 @@
 
 
 return array(
+    'magl_legacy_application' => array(
+        'doc_root' => 'public/', // the legacy apps DOCUMENT_ROOT for including files
+        'globals' => array(
+            'get' => true, // should $_GET be filled with variables from route match?
+            'request' => true, // should $_GET be filled with variables from route match?
+        ),
+    ),
     'router' => array(
         'routes' => array(
             'legacy' => array(
@@ -21,23 +28,18 @@ return array(
                 ),
             ),
             // example for transferring mod rewrite rules to zf2 routes
-//            'legacy-seo-calendar' => array(
-//                'type' => 'Zend\Mvc\Router\Http\Regex',
-//                'options' => array(
-//                    'regex'    => '/calendar/(?<foo>.+)',
-//                    'defaults' => array(
-//                        'controller' => 'MaglLegacyApplication\Controller\Legacy',
-//                        'action'     => 'index',
-//                        'script'     => 'index-seo.php',
-//                    ),
-//                    'spec' => '/',
-//                ),
-//            ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
-            'MaglLegacyApplication\Controller\Legacy' => 'MaglLegacyApplication\Controller\LegacyController',
+            'legacy-seo-calendar' => array(
+                'type' => 'Zend\Mvc\Router\Http\Regex',
+                'options' => array(
+                    'regex'    => '/calendar/(?<foo>.+)',
+                    'defaults' => array(
+                        'controller' => 'MaglLegacyApplication\Controller\Legacy',
+                        'action'     => 'index',
+                        'script'     => 'index-seo.php',
+                    ),
+                    'spec' => '/',
+                ),
+            ),
         ),
     ),
 );

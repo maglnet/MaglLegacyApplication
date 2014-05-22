@@ -10,15 +10,22 @@ namespace MaglLegacyApplication\Controller;
 class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
 {
     
-    public function __construct()
+    /**
+     *
+     * @var \MaglLegacyApplication\Options\LegacyControllerOptions
+     */
+    private $options;
+    
+    public function __construct(\MaglLegacyApplication\Options\LegacyControllerOptions $options)
     {
-        //todo: set options, such as "set $_GET", "set $_REQUEST" etc
+        $this->options = $options;
     }
 
     public function indexAction()
     {
-        $docroot = getcwd().'/public';
-        $uri = '/' . ltrim($this->params('script'), '/'); // Force leading '/'
+        $docroot = getcwd().'/'. $this->options->getDocRoot();
+        $docroot = rtrim($docroot, '/') . '/'; // force trailing '/'
+        $uri = ltrim($this->params('script'), '/');
         
         
         if (!file_exists($docroot . $uri)) {
@@ -39,6 +46,14 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
     
     private function setGetVariables(){
         
+        $globals_options = $this->options->getGlobals();
+        
+        // if we should not set any global vars, we can return safely
+        if(!$globals_options['get'] && !$globals_options['request']){
+            return;
+        }
+        
+        
         // check if $_GET is used at all (ini - variables_order ?)
         // check if $_GET is written to $_REQUEST (ini - variables_order / request_order)
         // depending on request_order, check if $_REQUEST is already written and decide if we are allowed to override
@@ -58,8 +73,14 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         $routeParams = $this->getEvent()->getRouteMatch()->getParams();
         
         foreach($routeParams as $paramName => $paramValue){
-            $_GET[$paramName] = $paramValue;
-            if($forceOverrideRequest || !isset($_REQUEST[$paramName])){
+            
+            if($globals_options['get']){
+                $_GET[$paramName] = $paramValue;
+            }
+            
+            if($globals_options['request'] 
+                && ($forceOverrideRequest || !isset($_REQUEST[$paramName]))
+            ){
                 $_REQUEST[$paramName] = $paramValue;
             }
         }
