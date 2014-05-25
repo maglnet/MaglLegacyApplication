@@ -1,9 +1,9 @@
 <?php
 /**
  * This is the index.php from the zf2 skeleton application
- * it was renamed to index-zf2-wrapper.php since the 
+ * it was renamed to index-zf2-wrapper.php since the
  * legacy application could have (and possibly already has) an index.php
- * 
+ *
  * additionally it uses MaglLegacyApplication::run() to be able to access the ZF2 mvc application from
  * within your legacy application
  */

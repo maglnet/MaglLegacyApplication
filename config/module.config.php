@@ -5,7 +5,6 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
-
 return array(
     'magl_legacy_application' => array(
         'doc_root' => 'public/', // the legacy apps DOCUMENT_ROOT for including files

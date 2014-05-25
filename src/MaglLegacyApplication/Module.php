@@ -15,29 +15,33 @@ class Module
         return include realpath(__DIR__ . '/../../config/module.config.php');
     }
 
-    public function getControllerConfig(){
+    public function getControllerConfig()
+    {
         return array(
             'factories' => array(
-                'MaglLegacyApplication\Controller\Legacy' => function($sl){
+                'MaglLegacyApplication\Controller\Legacy' => function ($sl) {
                     $options = $sl->getServiceLocator()->get('MaglLegacyApplicationOptions');
+
                     return new \MaglLegacyApplication\Controller\LegacyController($options);
                 }
             )
         );
     }
-    
-    public function getServiceConfig(){
+
+    public function getServiceConfig()
+    {
         return array(
             'factories' => array(
-                'MaglLegacyApplicationOptions' => function($sl){
+                'MaglLegacyApplicationOptions' => function ($sl) {
                     $config = $sl->get('Config');
                     $options = $config['magl_legacy_application'];
+
                     return new Options\LegacyControllerOptions($options);
                 }
             )
         );
     }
-    
+
     public function getAutoloaderConfig()
     {
         return array(

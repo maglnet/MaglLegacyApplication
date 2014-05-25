@@ -9,14 +9,14 @@ namespace MaglLegacyApplication\Options;
 
 class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
 {
-    
+
     private $docRoot = 'public';
-    
+
     private $globals = array(
         'get' => true,
         'request' => true,
     );
-    
+
     public function getDocRoot()
     {
         return $this->docRoot;
@@ -36,6 +36,5 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->globals = $globals;
     }
-
 
 }
