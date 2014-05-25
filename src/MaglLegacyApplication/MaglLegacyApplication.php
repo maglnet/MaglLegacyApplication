@@ -59,8 +59,7 @@ class MaglLegacyApplication
     /**
      *
      * @param  string    $legacyScriptFilename
-     * @return true      if the filename has been set
-     * @throws Exception if the request filename has already been set
+     * @return boolean   true, if the script filenamename was set, false otherwise, e.g. it has already been set
      */
     public static function setLegacyScriptFilename($legacyScriptFilename)
     {
@@ -70,8 +69,7 @@ class MaglLegacyApplication
             return true;
         }
 
-        throw new Exception('legacyScriptFilename is already set to \''.self::$legacyScriptFilename.'\','.
-            ' you are not allowed to change it again');
+        return false;
     }
 
     /**
@@ -86,8 +84,7 @@ class MaglLegacyApplication
     /**
      *
      * @param  string    $legacyScriptName
-     * @return true      if the filename has been set
-     * @throws Exception if the request filename has already been set
+     * @return boolean   true, if the script name was set, false otherwise, e.g. it has already been set
      */
     public static function setLegacyScriptName($legacyScriptName)
     {
@@ -97,8 +94,7 @@ class MaglLegacyApplication
             return true;
         }
 
-        throw new Exception('legacyScriptName is already set to \''.self::$legacyScriptName.'\','.
-            ' you are not allowed to change it again');
+        return false;
     }
 
 
