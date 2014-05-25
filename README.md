@@ -50,7 +50,8 @@ return array(
 ```
 
 ## Adjust your legacy Application
-If you use `require` with relative paths, you need to adjust those parts, since ZF2 does a chdir() to the application root.
+If you use `require`, `require_once` or `include` inside your legacy application with relative paths,
+you need to adjust those parts, since ZF2 does a chdir() to the application root.
 
 ## Using ZF2 within your legacy application
 ```php
