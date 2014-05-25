@@ -96,5 +96,8 @@ use MaglLegacyApplication\MaglLegacyApplication;
 MaglLegacyApplication::getApplication()->getServiceManager()->get('YourService');
 ```
 
+# Contributing
+If you have questions or problems regarding this module just open an issue or, even better,
+solve it and open a pull request. :+1:
 
 [1]: http://www.chrisabernethy.com/zend-framework-legacy-scripts/
