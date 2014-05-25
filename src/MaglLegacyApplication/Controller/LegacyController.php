@@ -16,6 +16,12 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
      */
     private $options;
     
+    /**
+     * filename of the requested script
+     * @var string 
+     */
+    private $legacyFilename;
+    
     public function __construct(\MaglLegacyApplication\Options\LegacyControllerOptions $options)
     {
         $this->options = $options;
@@ -26,18 +32,22 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         $docroot = getcwd().'/'. $this->options->getDocRoot();
         $docroot = rtrim($docroot, '/') . '/'; // force trailing '/'
         $uri = ltrim($this->params('script'), '/');
+        $this->legacyFilename = $docroot . $uri;
         
-        
-        if (!file_exists($docroot . $uri)) {
+        if (!file_exists($this->legacyFilename)) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $this->getResponse()->setStatusCode(404);
             return;
-        }            
+        }    
         
+        //inform the application about the used script
+        \MaglLegacyApplication\MaglLegacyApplication::setLegacyRequestFilename($this->legacyFilename);
+        
+        //inject get and request variables
         $this->setGetVariables();
 
         ob_start();
-        include $docroot . $uri;
+        include $this->legacyFilename;
         $output = ob_get_clean();
         $this->getResponse()->setContent($output);
         return $this->getResponse();
@@ -86,4 +96,5 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         }
         
     }
+
 }
