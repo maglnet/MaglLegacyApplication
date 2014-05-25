@@ -27,18 +27,18 @@ return array(
                 ),
             ),
             // example for transferring mod rewrite rules to zf2 routes
-            'legacy-seo-calendar' => array(
-                'type' => 'Zend\Mvc\Router\Http\Regex',
-                'options' => array(
-                    'regex'    => '/calendar/(?<foo>.+)',
-                    'defaults' => array(
-                        'controller' => 'MaglLegacyApplication\Controller\Legacy',
-                        'action'     => 'index',
-                        'script'     => 'index-seo.php',
-                    ),
-                    'spec' => '/',
-                ),
-            ),
+//            'legacy-seo-calendar' => array(
+//                'type' => 'Zend\Mvc\Router\Http\Regex',
+//                'options' => array(
+//                    'regex'    => '/calendar/(?<foo>.+)',
+//                    'defaults' => array(
+//                        'controller' => 'MaglLegacyApplication\Controller\Legacy',
+//                        'action'     => 'index',
+//                        'script'     => 'index-seo.php',
+//                    ),
+//                    'spec' => '/',
+//                ),
+//            ),
         ),
     ),
 );
