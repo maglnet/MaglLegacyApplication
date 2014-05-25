@@ -52,11 +52,47 @@ return array(
 ```
 
 ## Adjust your legacy Application
-If you use `require`, `require_once` or `include` inside your legacy application with relative paths,
-you need to adjust those parts, since ZF2 does a chdir() to the application root.
+There are several cases in which your legacy application won't run without additional adjustments, here are some of them:
+
+### Relative Paths
+Using relative paths for `require`, `require_once` or `includes` will possibly fail now, since ZF2 will do a `chdir()`
+to the ZF2's application root. So you will need to adjust your paths to match the new root.
+
+Example:
+
+```php
+include '../lib/somelib.php';
+```
+
+should be changed to:
+
+```php
+include __DIR__ . '/../lib/somelib.php';
+```
+
+### Using Globals / Server `SCRIPT_FILENAME` or `SCRIPT_NAME`
+Because of `mod_rewrite` rules, `SCRIPT_FILENAME` and `SCRIPT_NAME` won't be your real script anymore. 
+If you use these variables, you need to adjust these places within your legacy application:
+
+Example:
+
+```php
+$script_filename = $_SERVER['SCRIPT_FILENAME'];
+$script_name     = $_SERVER['SCRIPT_NAME'];
+```
+
+should be changed to:
+
+```php
+use MaglLegacyApplication\MaglLegacyApplication;
+$script_filename = MaglLegacyApplication::getLegacyScriptFilename();
+$script_name     = MaglLegacyApplication::getLegacyScriptName();
+
+```
 
 ## Using ZF2 within your legacy application
 ```php
+use MaglLegacyApplication\MaglLegacyApplication;
 MaglLegacyApplication::getApplication()->getServiceManager()->get('YourService');
 ```
 
