@@ -1,5 +1,7 @@
 # MaglLegacyApplication - Legacy Applications in ZF2
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/?branch=master)
+
 Run your legacy applications within Zend Framework 2.
 
 ## Introduction
