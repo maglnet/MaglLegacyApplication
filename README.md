@@ -5,8 +5,17 @@
 Run your legacy applications within Zend Framework 2.
 
 ## Introduction
+Since rewriting your legacy application from scratch to a ZF2 application could be nearly impossible
+due to time, effort, and resources, i was searching for a way to migrate a legacy application to a ZF2 application.
+
 A [great article by Chris Abernethy][1] described a way on how to run your legacy application within ZF1, so
-I migrated this HowTo to a small ZF2 module.
+I migrated this HowTo to a small ZF2 module, to be able to run a legacy application within ZF2.
+
+While running your legacy application within a ZF2 application it is possible to slowly migrate an existing application
+to ZF2 by leaving your old applicatin (nearly - see "Adjust your legacy Application") untouched and build new modules
+with the power of ZF2.  
+By adding a simple wrapper (see "Using ZF2 within your legacy application") you could also use the new modules
+within your legacy application. 
 
 
 ## Installation
