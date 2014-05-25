@@ -20,7 +20,7 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
      * filename of the requested script
      * @var string
      */
-    private $legacyFilename;
+    private $legacyScriptFilename;
 
     public function __construct(\MaglLegacyApplication\Options\LegacyControllerOptions $options)
     {
@@ -30,11 +30,11 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
     public function indexAction()
     {
         $docroot = getcwd().'/'. $this->options->getDocRoot();
-        $docroot = rtrim($docroot, '/') . '/'; // force trailing '/'
-        $uri = ltrim($this->params('script'), '/');
-        $this->legacyFilename = $docroot . $uri;
+        $docroot = rtrim($docroot, '/');
+        $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
+        $this->legacyScriptFilename = $docroot . $scriptUri;
 
-        if (!file_exists($this->legacyFilename)) {
+        if (!file_exists($this->legacyScriptFilename)) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $response = $this->getResponse();
             /* @var $response \Zend\Http\Response */
@@ -44,13 +44,14 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         }
 
         //inform the application about the used script
-        \MaglLegacyApplication\MaglLegacyApplication::setLegacyRequestFilename($this->legacyFilename);
+        \MaglLegacyApplication\MaglLegacyApplication::setLegacyScriptFilename($this->legacyScriptFilename);
+        \MaglLegacyApplication\MaglLegacyApplication::setLegacyScriptName($scriptUri);
 
         //inject get and request variables
         $this->setGetVariables();
 
         ob_start();
-        include $this->legacyFilename;
+        include $this->legacyScriptFilename;
         $output = ob_get_clean();
         $this->getResponse()->setContent($output);
 

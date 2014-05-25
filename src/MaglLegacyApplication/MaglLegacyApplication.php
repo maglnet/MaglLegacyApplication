@@ -7,6 +7,7 @@
 
 namespace MaglLegacyApplication;
 
+use Exception;
 use Zend\Mvc\Application;
 
 class MaglLegacyApplication
@@ -22,7 +23,13 @@ class MaglLegacyApplication
      *
      * @var string full path of the requested file (may be used within your legacy application)
      */
-    private static $legacyRequestFilename = null;
+    private static $legacyScriptFilename = null;
+
+    /**
+     *
+     * @var string url path of the requested file (may be used within your legacy application)
+     */
+    private static $legacyScriptName = null;
 
     public static function run($config)
     {
@@ -44,27 +51,55 @@ class MaglLegacyApplication
      *
      * @return string the full path of the requested legacy filename
      */
-    public static function getLegacyRequestFilename()
+    public static function getLegacyScriptFilename()
     {
-        return self::$legacyRequestFilename;
+        return self::$legacyScriptFilename;
     }
 
     /**
      *
-     * @param  string    $legacyRequestFilename
+     * @param  string    $legacyScriptFilename
      * @return true      if the filename has been set
      * @throws Exception if the request filename has already been set
      */
-    public static function setLegacyRequestFilename($legacyRequestFilename)
+    public static function setLegacyScriptFilename($legacyScriptFilename)
     {
-        if (null === self::$legacyRequestFilename) {
-            self::$legacyRequestFilename = $legacyRequestFilename;
+        if (null === self::$legacyScriptFilename) {
+            self::$legacyScriptFilename = $legacyScriptFilename;
 
             return true;
         }
 
-        throw new Exception('legacyRequestFilename is already set to \''.self::$legacyRequestFilename.'\','.
-            ' you are not allowed to change it');
+        throw new Exception('legacyScriptFilename is already set to \''.self::$legacyScriptFilename.'\','.
+            ' you are not allowed to change it again');
     }
+
+    /**
+     *
+     * @return string the URI path of the requested legacy filename
+     */
+    public static function getLegacyScriptName()
+    {
+        return self::$legacyScriptName;
+    }
+
+    /**
+     *
+     * @param  string    $legacyScriptName
+     * @return true      if the filename has been set
+     * @throws Exception if the request filename has already been set
+     */
+    public static function setLegacyScriptName($legacyScriptName)
+    {
+        if (null === self::$legacyScriptName) {
+            self::$legacyScriptName = $legacyScriptName;
+
+            return true;
+        }
+
+        throw new Exception('legacyScriptName is already set to \''.self::$legacyScriptName.'\','.
+            ' you are not allowed to change it again');
+    }
+
 
 }
