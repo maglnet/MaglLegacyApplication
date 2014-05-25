@@ -12,7 +12,7 @@ A [great article by Chris Abernethy][1] described a way on how to run your legac
 I migrated this HowTo to a small ZF2 module, to be able to run a legacy application within ZF2.
 
 While running your legacy application within a ZF2 application it is possible to slowly migrate an existing application
-to ZF2 by leaving your old applicatin (nearly - see "Adjust your legacy Application") untouched and build new modules
+to ZF2 by leaving your old application (nearly - see "Adjust your legacy Application") untouched and build new modules
 with the power of ZF2.  
 By adding a simple wrapper (see "Using ZF2 within your legacy application") you could also use the new modules
 within your legacy application. 
