@@ -7,7 +7,6 @@
 
 namespace MaglLegacyApplication;
 
-use Exception;
 use Zend\Mvc\Application;
 
 class MaglLegacyApplication
