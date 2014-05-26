@@ -96,6 +96,4 @@ class MaglLegacyApplication
 
         return false;
     }
-
-
 }

@@ -29,7 +29,7 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
 
     public function indexAction()
     {
-        $docroot = getcwd().'/'. $this->options->getDocRoot();
+        $docroot = getcwd() . '/' . $this->options->getDocRoot();
         $docroot = rtrim($docroot, '/');
         $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
         $this->legacyScriptFilename = $docroot . $scriptUri;
@@ -56,7 +56,6 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         $this->getResponse()->setContent($output);
 
         return $this->getResponse();
-
     }
 
     private function setGetVariables()
@@ -91,13 +90,9 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
                 $_GET[$paramName] = $paramValue;
             }
 
-            if($globals_options['request']
-                && ($forceOverrideRequest || !isset($_REQUEST[$paramName]))
-            ){
+            if ($globals_options['request'] && ($forceOverrideRequest || !isset($_REQUEST[$paramName]))) {
                 $_REQUEST[$paramName] = $paramValue;
             }
         }
-
     }
-
 }

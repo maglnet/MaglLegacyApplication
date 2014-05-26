@@ -36,5 +36,4 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->globals = $globals;
     }
-
 }
