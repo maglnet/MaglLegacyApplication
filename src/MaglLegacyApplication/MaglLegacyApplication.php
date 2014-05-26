@@ -63,13 +63,7 @@ class MaglLegacyApplication
      */
     public static function setLegacyScriptFilename($legacyScriptFilename)
     {
-        if (null === self::$legacyScriptFilename) {
-            self::$legacyScriptFilename = $legacyScriptFilename;
-
-            return true;
-        }
-
-        return false;
+        return self::setStaticVarOnce('legacyScriptFilename', $legacyScriptFilename);
     }
 
     /**
@@ -88,8 +82,19 @@ class MaglLegacyApplication
      */
     public static function setLegacyScriptName($legacyScriptName)
     {
-        if (null === self::$legacyScriptName) {
-            self::$legacyScriptName = $legacyScriptName;
+        return self::setStaticVarOnce('legacyScriptName', $legacyScriptName);
+    }
+
+    /**
+     * 
+     * @param string $staticVarName the name of the static variable to set
+     * @param mixed $value
+     * @return boolean true, if the variable was set, false otherwise, e.g. it has already been set
+     */
+    private static function setStaticVarOnce($staticVarName, $value)
+    {
+        if (null === self::$$staticVarName) {
+            self::$$staticVarName = $value;
 
             return true;
         }
