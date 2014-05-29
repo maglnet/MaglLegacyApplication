@@ -37,7 +37,9 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         if (!file_exists($this->legacyScriptFilename)) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $response = $this->getResponse();
-            /* @var $response \Zend\Http\Response */
+            
+            /* @var $response \Zend\Http\Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
+            /** @var \Zend\Http\Response $response */ // <-- this one for other IDEs and code analyzers :)
             $response->setStatusCode(404);
 
             return;
