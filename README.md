@@ -1,6 +1,8 @@
 # MaglLegacyApplication - Legacy Applications in ZF2
 
+[![Latest Stable Version](https://poser.pugx.org/maglnet/magl-legacy-application/v/stable.svg)](https://packagist.org/packages/maglnet/magl-legacy-application)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/?branch=master)
+[![License](https://poser.pugx.org/maglnet/magl-legacy-application/license.svg)](https://packagist.org/packages/maglnet/magl-legacy-application)
 
 Run your legacy applications within Zend Framework 2.
 
