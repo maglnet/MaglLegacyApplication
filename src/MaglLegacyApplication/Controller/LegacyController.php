@@ -94,7 +94,7 @@ class LegacyController extends AbstractActionController
 
         foreach ($routeParams as $paramName => $paramValue) {
 
-            if ($globals_options['get']) {
+            if ($globals_options['get'] && !isset($_GET[$paramName])) {
                 $_GET[$paramName] = $paramValue;
             }
 
