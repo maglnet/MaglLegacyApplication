@@ -19,5 +19,9 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
 // Setup autoloading
 require 'init_autoloader.php';
 
-require_once realpath(__DIR__ . '/../module/MaglLegacyApplication/src/MaglLegacyApplication/MaglLegacyApplication.php');
-MaglLegacyApplication\MaglLegacyApplication::run(require 'config/application.config.php');
+// you do not need this, if MaglLegacyApplication is installed through composer
+require_once realpath(__DIR__ . '/../module/MaglLegacyApplication/src/MaglLegacyApplication/Application/MaglLegacy.php');
+
+$application = Zend\Mvc\Application::init(require 'config/application.config.php');
+\MaglLegacyApplication\Application\MaglLegacy::getInstance()->setApplication($application);
+$application->run();

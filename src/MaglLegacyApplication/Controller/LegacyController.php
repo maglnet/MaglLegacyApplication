@@ -7,24 +7,30 @@
 
 namespace MaglLegacyApplication\Controller;
 
-class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
+use MaglLegacyApplication\Application\MaglLegacy;
+use MaglLegacyApplication\Options\LegacyControllerOptions;
+use Zend\Http\Response;
+use Zend\Mvc\Controller\AbstractActionController;
+
+class LegacyController extends AbstractActionController
 {
 
     /**
      *
-     * @var \MaglLegacyApplication\Options\LegacyControllerOptions
+     * @var LegacyControllerOptions
      */
     private $options;
 
     /**
-     * filename of the requested script
-     * @var string
+     *
+     * @var MaglLegacy
      */
-    private $legacyScriptFilename;
+    private $legacy;
 
-    public function __construct(\MaglLegacyApplication\Options\LegacyControllerOptions $options)
+    public function __construct(LegacyControllerOptions $options, MaglLegacy $legacy)
     {
         $this->options = $options;
+        $this->legacy = $legacy;
     }
 
     public function indexAction()
@@ -32,28 +38,28 @@ class LegacyController extends \Zend\Mvc\Controller\AbstractActionController
         $docroot = getcwd() . '/' . $this->options->getDocRoot();
         $docroot = rtrim($docroot, '/');
         $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
-        $this->legacyScriptFilename = $docroot . $scriptUri;
+        $legacyScriptFilename = $docroot . $scriptUri;
 
-        if (!file_exists($this->legacyScriptFilename)) {
+        if (!file_exists($legacyScriptFilename)) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $response = $this->getResponse();
-            
-            /* @var $response \Zend\Http\Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
-            /** @var \Zend\Http\Response $response */ // <-- this one for other IDEs and code analyzers :)
+
+            /* @var $response Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
+            /** @var Response $response */ // <-- this one for other IDEs and code analyzers :)
             $response->setStatusCode(404);
 
             return;
         }
 
         //inform the application about the used script
-        \MaglLegacyApplication\MaglLegacyApplication::setLegacyScriptFilename($this->legacyScriptFilename);
-        \MaglLegacyApplication\MaglLegacyApplication::setLegacyScriptName($scriptUri);
+        $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
+        $this->legacy->setLegacyScriptName($scriptUri);
 
         //inject get and request variables
         $this->setGetVariables();
 
         ob_start();
-        include $this->legacyScriptFilename;
+        include $legacyScriptFilename;
         $output = ob_get_clean();
         $this->getResponse()->setContent($output);
 

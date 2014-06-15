@@ -21,8 +21,10 @@ class Module
             'factories' => array(
                 'MaglLegacyApplication\Controller\Legacy' => function ($sl) {
                     $options = $sl->getServiceLocator()->get('MaglLegacyApplicationOptions');
+                    
+                    $legacyApp = Application\MaglLegacy::getInstance();
 
-                    return new \MaglLegacyApplication\Controller\LegacyController($options);
+                    return new \MaglLegacyApplication\Controller\LegacyController($options, $legacyApp);
                 }
             )
         );

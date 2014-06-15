@@ -30,8 +30,8 @@ Install through composer
 }
 ```
 
-Copy the provided file `data/magl-zf2-legacy-wrapper.php` to your `public/` folder.
-Copy the provided file `data/.htaccess` to your publix folder.
+Copy the provided file `data/magl-zf2-legacy-wrapper.php` to your `public/` folder.  
+Copy the provided file `data/.htaccess` to your publix folder.  
 Copy your legacy Application to your `public/` folder.
 
 Your legacy application should now run within ZF2. :)
@@ -95,16 +95,18 @@ $script_name     = $_SERVER['SCRIPT_NAME'];
 should be changed to:
 
 ```php
-use MaglLegacyApplication\MaglLegacyApplication;
-$script_filename = MaglLegacyApplication::getLegacyScriptFilename();
-$script_name     = MaglLegacyApplication::getLegacyScriptName();
+use MaglLegacyApplication\Application\MaglLegacy;
+$legacy          = MaglLegacy::getInstance();
+$script_filename = $legacy->getLegacyScriptFilename();
+$script_name     = $legacy->getLegacyScriptName();
 
 ```
 
 ## Using ZF2 within your legacy application
 ```php
-use MaglLegacyApplication\MaglLegacyApplication;
-MaglLegacyApplication::getApplication()->getServiceManager()->get('YourService');
+use MaglLegacyApplication\Application\MaglLegacy;
+$application = MaglLegacy::getInstance()->getApplication();
+$yourService = $application->getServiceManager()->get('YourService');
 ```
 
 # Contributing
