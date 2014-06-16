@@ -3,6 +3,8 @@
 [![Latest Stable Version](https://poser.pugx.org/maglnet/magl-legacy-application/v/stable.svg)](https://packagist.org/packages/maglnet/magl-legacy-application)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/?branch=master)
 [![License](https://poser.pugx.org/maglnet/magl-legacy-application/license.svg)](https://packagist.org/packages/maglnet/magl-legacy-application)
+[![Build Status](https://travis-ci.org/maglnet/MaglLegacyApplication.svg?branch=master)](https://travis-ci.org/maglnet/MaglLegacyApplication)
+[![Code Coverage](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/maglnet/MaglLegacyApplication/?branch=master)
 
 Run your legacy applications within Zend Framework 2.
 
