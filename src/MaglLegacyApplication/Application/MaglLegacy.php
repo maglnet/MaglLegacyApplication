@@ -86,7 +86,7 @@ class MaglLegacy
      */
     public function setLegacyScriptFilename($legacyScriptFilename)
     {
-        return $this->legacyScriptFilename = $legacyScriptFilename;
+        return $this->setVarOnce('legacyScriptFilename', $legacyScriptFilename);
     }
 
     /**
@@ -105,6 +105,15 @@ class MaglLegacy
      */
     public function setLegacyScriptName($legacyScriptName)
     {
-        return $this->legacyScriptName = $legacyScriptName;
+        return $this->setVarOnce('legacyScriptName', $legacyScriptName);
+    }
+
+    private function setVarOnce($varName, $varValue)
+    {
+        if (!isset($this->$varName)) {
+            $this->$varName = $varValue;
+            return true;
+        }
+        return false;
     }
 }
