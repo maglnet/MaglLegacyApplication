@@ -46,11 +46,17 @@ class MaglLegacy
         return self::$instance;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __clone()
     {
         return null;
