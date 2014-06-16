@@ -33,8 +33,11 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
 
         $reflectionClass = new \ReflectionClass($instance);
 
-        $this->assertFalse($reflectionClass->isCloneable());
+        if (!method_exists($reflectionClass, 'isCloneable')) {
+            $this->markTestSkipped('no isClonable test available');
+        }
 
+        $this->assertFalse($reflectionClass->isCloneable());
     }
 
     public function testConstructorPrivate()
@@ -46,9 +49,12 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $instance = MaglLegacy::getInstance();
 
         $reflectionClass = new \ReflectionClass($instance);
+        
+        if (!method_exists($reflectionClass, 'isInstantiable')) {
+            $this->markTestSkipped('no isInstantiable test available');
+        }
 
         $this->assertFalse($reflectionClass->isInstantiable());
-
     }
 
     public function testSetLegacyScriptName()
@@ -63,7 +69,6 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->setLegacyScriptName('not-allowed-to-set-again.php'));
 
         $this->assertEquals($scriptName, $instance->getLegacyScriptName());
-
     }
 
     public function testSetLegacyScriptFileName()
@@ -78,6 +83,5 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->setLegacyScriptFileName('not-allowed-to-set-again.php'));
 
         $this->assertEquals($scriptFileName, $instance->getLegacyScriptFileName());
-
     }
 }
