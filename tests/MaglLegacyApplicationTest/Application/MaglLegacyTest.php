@@ -19,65 +19,65 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $instance = MaglLegacy::getInstance();
         $this->assertInstanceOf('\MaglLegacyApplication\Application\MaglLegacy', $instance);
     }
-    
+
     /**
      * @covers \MaglLegacyApplication\Application\MaglLegacy::__clone
      */
-    public function testClonePrivate(){
-        
-        if(!class_exists('\ReflectionClass')){
+    public function testClonePrivate()
+    {
+        if (!class_exists('\ReflectionClass')) {
             $this->markTestSkipped('no reflection api available');
         }
-        
+
         $instance = MaglLegacy::getInstance();
-        
+
         $reflectionClass = new \ReflectionClass($instance);
 
         $this->assertFalse($reflectionClass->isCloneable());
-        
+
     }
-    
-    public function testConstructorPrivate(){
-        
-        if(!class_exists('\ReflectionClass')){
+
+    public function testConstructorPrivate()
+    {
+        if (!class_exists('\ReflectionClass')) {
             $this->markTestSkipped('no reflection api available');
         }
-        
+
         $instance = MaglLegacy::getInstance();
-        
+
         $reflectionClass = new \ReflectionClass($instance);
 
         $this->assertFalse($reflectionClass->isInstantiable());
-        
+
     }
-    
-    public function testSetLegacyScriptName(){
-        
+
+    public function testSetLegacyScriptName()
+    {
         $scriptName = 'myscript.php';
-        
+
         $instance = MaglLegacy::getInstance();
         $instance->setLegacyScriptName($scriptName);
-        
+
         $this->assertEquals($scriptName, $instance->getLegacyScriptName());
-        
+
         $this->assertFalse($instance->setLegacyScriptName('not-allowed-to-set-again.php'));
-        
-        $this->assertEquals($scriptName, $instance->getLegacyScriptName());        
-        
+
+        $this->assertEquals($scriptName, $instance->getLegacyScriptName());
+
     }
-    
-    public function testSetLegacyScriptFileName(){
-        
+
+    public function testSetLegacyScriptFileName()
+    {
         $scriptFileName = 'myscript.php';
-        
+
         $instance = MaglLegacy::getInstance();
         $instance->setLegacyScriptFileName($scriptFileName);
-        
+
         $this->assertEquals($scriptFileName, $instance->getLegacyScriptFileName());
-        
+
         $this->assertFalse($instance->setLegacyScriptFileName('not-allowed-to-set-again.php'));
-        
-        $this->assertEquals($scriptFileName, $instance->getLegacyScriptFileName());        
-        
+
+        $this->assertEquals($scriptFileName, $instance->getLegacyScriptFileName());
+
     }
 }

@@ -49,7 +49,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('factories', $config));
         $this->assertTrue(array_key_exists('MaglLegacyApplicationOptions', $config['factories']));
     }
-    
+
     public function testGetControllerConfig()
     {
         $config = $this->instance->getControllerConfig();
