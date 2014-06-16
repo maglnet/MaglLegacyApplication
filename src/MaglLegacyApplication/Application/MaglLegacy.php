@@ -115,6 +115,10 @@ class MaglLegacy
         return $this->setVarOnce('legacyScriptName', $legacyScriptName);
     }
 
+    /**
+     * @param string $varName the variable to be set
+     * @param string $varValue the value
+     */
     private function setVarOnce($varName, $varValue)
     {
         if (!isset($this->$varName)) {
