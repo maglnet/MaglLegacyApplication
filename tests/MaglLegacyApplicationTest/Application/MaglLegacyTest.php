@@ -25,6 +25,10 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
      */
     public function testClonePrivate(){
         
+        if(!class_exists('\ReflectionClass')){
+            $this->markTestSkipped('no reflection api available');
+        }
+        
         $instance = MaglLegacy::getInstance();
         
         $reflectionClass = new \ReflectionClass($instance);
@@ -34,6 +38,10 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
     }
     
     public function testConstructorPrivate(){
+        
+        if(!class_exists('\ReflectionClass')){
+            $this->markTestSkipped('no reflection api available');
+        }
         
         $instance = MaglLegacy::getInstance();
         
