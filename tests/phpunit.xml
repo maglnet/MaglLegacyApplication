@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Bootstrap.php" colors="true">
+	<testsuites>
+		<testsuite name="MaglLegacyApplication">
+			<directory>./MaglLegacyApplicationTest</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../src</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="./log/coverage.xml"/>
+	</logging>
+    <logging>
+        <log type="coverage-text" target="php://stdout"/>
+    </logging>    
+</phpunit>
