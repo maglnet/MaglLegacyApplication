@@ -18,6 +18,10 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
 
         $instance = MaglLegacy::getInstance();
         $this->assertInstanceOf('\MaglLegacyApplication\Application\MaglLegacy', $instance);
+
+        $instance2 = MaglLegacy::getInstance();
+
+        $this->assertSame($instance2, $instance);
     }
 
     /**
@@ -49,7 +53,7 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $instance = MaglLegacy::getInstance();
 
         $reflectionClass = new \ReflectionClass($instance);
-        
+
         if (!method_exists($reflectionClass, 'isInstantiable')) {
             $this->markTestSkipped('no isInstantiable test available');
         }
@@ -57,7 +61,7 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($reflectionClass->isInstantiable());
     }
 
-    public function testSetLegacyScriptName()
+    public function testSetGetLegacyScriptName()
     {
         $scriptName = 'myscript.php';
 
@@ -71,7 +75,7 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($scriptName, $instance->getLegacyScriptName());
     }
 
-    public function testSetLegacyScriptFileName()
+    public function testSetGetLegacyScriptFileName()
     {
         $scriptFileName = 'myscript.php';
 
@@ -83,5 +87,19 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($instance->setLegacyScriptFileName('not-allowed-to-set-again.php'));
 
         $this->assertEquals($scriptFileName, $instance->getLegacyScriptFileName());
+    }
+
+    public function testSetGetApplication()
+    {
+
+        $appMock = $this->getMockBuilder('Zend\Mvc\Application')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $instance = MaglLegacy::getInstance();
+
+        $instance->setApplication($appMock);
+
+        $this->assertSame($appMock, $instance->getApplication());
     }
 }
