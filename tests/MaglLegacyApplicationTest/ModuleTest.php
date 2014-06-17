@@ -58,23 +58,29 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('MaglLegacyApplication\Controller\Legacy', $config['factories']));
     }
 
-    public function testGetControllerFromServiceManager()
-    {
-
-        $sm = Bootstrap::getServiceManager();
-
-        $controller = $sm->get('ControllerLoader')->get('MaglLegacyApplication\Controller\Legacy');
-
-        $this->assertInstanceOf('\MaglLegacyApplication\Controller\LegacyController', $controller);
-    }
-
+    /**
+     * @covers MaglLegacyApplication\Module::getServiceConfig
+     */
     public function testGetLegacyControllerOptionsFromServiceManager()
     {
-
+//        $this->markTestSkipped();
         $sm = Bootstrap::getServiceManager();
 
         $options = $sm->get('MaglLegacyApplicationOptions');
 
         $this->assertInstanceOf('\MaglLegacyApplication\Options\LegacyControllerOptions', $options);
+    }
+
+    /**
+     * @covers MaglLegacyApplication\Module::getControllerConfig
+     */
+    public function testGetControllerFromServiceManager()
+    {
+//$this->markTestSkipped();
+        $sm = Bootstrap::getServiceManager();
+
+        $controller = $sm->get('ControllerLoader')->get('MaglLegacyApplication\Controller\Legacy');
+
+        $this->assertInstanceOf('\MaglLegacyApplication\Controller\LegacyController', $controller);
     }
 }
