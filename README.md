@@ -32,6 +32,14 @@ Install through composer
 }
 ```
 
+Enable the module within your ZF2 `application.config.php`
+```php
+    'modules' => array(
+        'Application',
+        'MaglLegacyApplication',
+    ),
+```
+
 Copy the provided file `data/magl-zf2-legacy-wrapper.php` to your `public/` folder.  
 Copy the provided file `data/.htaccess` to your publix folder.  
 Copy your legacy Application to your `public/` folder.
