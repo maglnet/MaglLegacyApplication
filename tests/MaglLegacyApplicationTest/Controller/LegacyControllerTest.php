@@ -17,7 +17,6 @@ class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
         $sm = \MaglLegacyApplicationTest\Bootstrap::getServiceManager();
         $this->setApplicationConfig($sm->get('ApplicationConfig'));
 
-        print_r($sm->get('Config'));
         parent::setUp();
     }
 
