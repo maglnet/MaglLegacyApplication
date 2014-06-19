@@ -33,13 +33,17 @@ class Bootstrap
         $config = array(
             'module_listener_options' => array(
                 'module_paths' => $zf2ModulePaths,
+                'config_glob_paths' => array(
+                    __DIR__ . '/application.config.php',
+                )
             ),
             'modules' => array(
                 'MaglLegacyApplication'
-            )
+            ),
         );
 
         $app = Application::init($config);
+        \MaglLegacyApplication\Application\MaglLegacy::getInstance()->setApplication($app);
         static::$serviceManager = $app->getServiceManager();
     }
 
@@ -87,7 +91,6 @@ class Bootstrap
 
         return $dir . '/' . $path;
     }
-
 }
 
 Bootstrap::init();
