@@ -35,12 +35,9 @@ class LegacyController extends AbstractActionController
 
     public function indexAction()
     {
-        $docroot = getcwd() . '/' . $this->options->getDocRoot();
-        $docroot = rtrim($docroot, '/');
-        $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
-        $legacyScriptFilename = $docroot . $scriptUri;
+        $script = $this->getScriptInfo();
 
-        if (!file_exists($legacyScriptFilename)) {
+        if (!file_exists($script['file_name'])) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $response = $this->getResponse();
 
@@ -52,16 +49,15 @@ class LegacyController extends AbstractActionController
         }
 
         //inform the application about the used script
-        $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
-        $this->legacy->setLegacyScriptName($scriptUri);
+        $this->legacy->setLegacyScriptFilename($script['file_name']);
+        $this->legacy->setLegacyScriptName($script['uri']);
 
         //inject get and request variables
         $this->setGetVariables();
 
-        ob_start();
-        include $legacyScriptFilename;
-        $output = ob_get_clean();
-        $this->getResponse()->setContent($output);
+        $this->getResponse()->setContent(
+            $this->runScript($script['file_name'])
+        );
 
         return $this->getResponse();
     }
@@ -102,5 +98,25 @@ class LegacyController extends AbstractActionController
                 $_REQUEST[$paramName] = $paramValue;
             }
         }
+    }
+
+    private function getScriptInfo()
+    {
+        $scriptInfo = array();
+
+        $docroot = getcwd() . '/' . $this->options->getDocRoot();
+        $docroot = rtrim($docroot, '/');
+        $scriptInfo['uri'] = '/' . ltrim($this->params('script'), '/'); // force leading '/'
+        $scriptInfo['file_name'] = $docroot . $scriptInfo['uri'];
+
+        return $scriptInfo;
+    }
+
+    private function runScript($fileName)
+    {
+        ob_start();
+        include $fileName;
+        $output = ob_get_clean();
+        return $output;
     }
 }
