@@ -40,11 +40,11 @@ class LegacyController extends AbstractActionController
 
         $scriptName = $this->params('script');
 
-        if(empty($scriptName)){
-            foreach($this->options->getIndexFiles() as $indexFile){
-                if(file_exists($docroot. '/' . $indexFile)){
+        if (empty($scriptName)) {
+            foreach ($this->options->getIndexFiles() as $indexFile) {
+                if (file_exists($docroot . '/' . $indexFile)) {
                     ob_start();
-                    include $docroot. '/' . $indexFile;
+                    include $docroot . '/' . $indexFile;
                     $output = ob_get_clean();
                     $this->getResponse()->setContent($output);
                     return $this->getResponse();
