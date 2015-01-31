@@ -12,6 +12,8 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
 
     private $docRoot = 'public';
 
+    private $indexFiles = array();
+
     private $globals = array(
         'get' => true,
         'request' => true,
@@ -35,5 +37,21 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     public function setGlobals($globals)
     {
         $this->globals = $globals;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIndexFiles()
+    {
+        return $this->indexFiles;
+    }
+
+    /**
+     * @param array $indexFiles
+     */
+    public function setIndexFiles($indexFiles)
+    {
+        $this->indexFiles = $indexFiles;
     }
 }

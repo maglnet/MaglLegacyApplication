@@ -35,29 +35,47 @@ class LegacyController extends AbstractActionController
 
     public function indexAction()
     {
-        $script = $this->getScriptInfo();
+        $docroot = getcwd() . '/' . $this->options->getDocRoot();
+        $docroot = rtrim($docroot, '/');
 
-        if (!file_exists($script['file_name'])) {
+
+        if(empty($this->params('script'))){
+            foreach($this->options->getIndexFiles() as $indexFile){
+                if(file_exists($docroot. '/' . $indexFile)){
+                    ob_start();
+                    include $docroot. '/' . $indexFile;
+                    $output = ob_get_clean();
+                    $this->getResponse()->setContent($output);
+                    return $this->getResponse();
+                }
+            }
+        }
+
+
+        $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
+        $legacyScriptFilename = $docroot . $scriptUri;
+
+        if (!file_exists($legacyScriptFilename)) {
             // if we're here, the file doesn't really exist and we do not know what to do
             $response = $this->getResponse();
 
             /* @var $response Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
             /** @var Response $response */ // <-- this one for other IDEs and code analyzers :)
             $response->setStatusCode(404);
-
             return;
         }
 
         //inform the application about the used script
-        $this->legacy->setLegacyScriptFilename($script['file_name']);
-        $this->legacy->setLegacyScriptName($script['uri']);
+        $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
+        $this->legacy->setLegacyScriptName($scriptUri);
 
         //inject get and request variables
         $this->setGetVariables();
 
-        $this->getResponse()->setContent(
-            $this->runScript($script['file_name'])
-        );
+        ob_start();
+        include $legacyScriptFilename;
+        $output = ob_get_clean();
+        $this->getResponse()->setContent($output);
 
         return $this->getResponse();
     }
