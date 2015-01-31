@@ -18,7 +18,7 @@ return array(
             'legacy' => array(
                 'type' => 'Zend\Mvc\Router\Http\Regex',
                 'options' => array(
-                    'regex'    => '(?<script>.+\.php)',
+                    'regex'    => '(?<script>.+\.php)|/',
                     'defaults' => array(
                         'controller' => 'MaglLegacyApplication\Controller\Legacy',
                         'action'     => 'index',
