@@ -38,8 +38,9 @@ class LegacyController extends AbstractActionController
         $docroot = getcwd() . '/' . $this->options->getDocRoot();
         $docroot = rtrim($docroot, '/');
 
+        $scriptName = $this->params('script');
 
-        if(empty($this->params('script'))){
+        if(empty($scriptName)){
             foreach($this->options->getIndexFiles() as $indexFile){
                 if(file_exists($docroot. '/' . $indexFile)){
                     ob_start();
@@ -52,7 +53,7 @@ class LegacyController extends AbstractActionController
         }
 
 
-        $scriptUri = '/' . ltrim($this->params('script'), '/'); // force leading '/'
+        $scriptUri = '/' . ltrim($scriptName, '/'); // force leading '/'
         $legacyScriptFilename = $docroot . $scriptUri;
 
         if (!file_exists($legacyScriptFilename)) {
