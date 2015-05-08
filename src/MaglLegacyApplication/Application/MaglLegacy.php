@@ -79,6 +79,24 @@ class MaglLegacy
 
     /**
      *
+     * @return \Zend\ServiceManager\ServiceManager
+     */
+    public static function getServiceManager()
+    {
+        return static::getInstance()->getApplication()->getServiceManager();
+    }
+
+    /**
+     *
+     * @return \Zend\EventManager\EventManager
+     */
+    public static function getEventManager()
+    {
+        return static::getInstance()->getApplication()->getEventManager();
+    }
+
+    /**
+     *
      * @return string the full path of the requested legacy filename
      */
     public function getLegacyScriptFilename()
