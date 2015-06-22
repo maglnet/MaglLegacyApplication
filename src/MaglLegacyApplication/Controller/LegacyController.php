@@ -80,7 +80,7 @@ class LegacyController extends AbstractActionController
         $output = ob_get_clean();
 
         $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
-        if($result->stopped()){
+        if ($result->stopped()) {
             return $result->last();
         }
 
