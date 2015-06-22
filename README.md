@@ -119,6 +119,21 @@ $application = MaglLegacy::getInstance()->getApplication();
 $yourService = $application->getServiceManager()->get('YourService');
 ```
 
+## Injecting responses from within your legacy application
+from wherever you are within your legacy application, it is possible to bypass your legacy applications controller code
+and send a response to the ZF2 Controller wrapper. This response will then be handled like within a normal ZF2 controller.
+```php
+use MaglLegacyApplication\Application\MaglLegacy;
+$application = MaglLegacy::getInstance()->getApplication();
+$application->getEventManager->getSharedManager()->attach('*', MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, function(Event $e){
+    $response = new \Zend\Http\Response();
+    $response->setStatusCode(404);
+    $response->setContent('not found');
+    $e->stopPropagation(true);
+    return $response;
+});
+```
+
 # Contributing
 If you have questions or problems regarding this module just open an issue or, even better,
 solve it and open a pull request. :+1:
