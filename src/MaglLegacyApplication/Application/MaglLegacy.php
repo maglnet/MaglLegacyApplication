@@ -10,6 +10,8 @@ namespace MaglLegacyApplication\Application;
 class MaglLegacy
 {
 
+    const EVENT_SHORT_CIRCUIT_RESPONSE = 'magl-short-circuit-response';
+
     /**
      *
      * @var MaglLegacy

@@ -9,8 +9,10 @@ namespace MaglLegacyApplication\Controller;
 
 use MaglLegacyApplication\Application\MaglLegacy;
 use MaglLegacyApplication\Options\LegacyControllerOptions;
+use Zend\EventManager\Event;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 
 class LegacyController extends AbstractActionController
 {
@@ -76,8 +78,13 @@ class LegacyController extends AbstractActionController
         ob_start();
         include $legacyScriptFilename;
         $output = ob_get_clean();
-        $this->getResponse()->setContent($output);
 
+        $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
+        if($result->stopped()){
+            return $result->last();
+        }
+
+        $this->getResponse()->setContent($output);
         return $this->getResponse();
     }
 

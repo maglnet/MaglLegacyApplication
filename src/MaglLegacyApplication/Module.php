@@ -7,6 +7,9 @@
 
 namespace MaglLegacyApplication;
 
+use Zend\Mvc\Router\RouteMatch;
+use Zend\ServiceManager\ServiceManager;
+
 class Module
 {
 
@@ -39,6 +42,19 @@ class Module
                     $options = $config['magl_legacy_application'];
 
                     return new Options\LegacyControllerOptions($options);
+                },
+                'MaglControllerService' => function (ServiceManager $sl) {
+
+                    $eventManager = $sl->get('Application')->getEventManager();
+
+                    $event = new \Zend\Mvc\MvcEvent();
+                    $event->setApplication($sl->get('Application'));
+                    $event->setTarget($sl->get('Application'));
+                    $event->setRequest($sl->get('Request'));
+
+                    $routeMatch = new RouteMatch(array());
+
+                    return new Service\ControllerService($eventManager, $event, $routeMatch);
                 }
             )
         );
