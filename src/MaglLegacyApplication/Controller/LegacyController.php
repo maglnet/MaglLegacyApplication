@@ -9,10 +9,8 @@ namespace MaglLegacyApplication\Controller;
 
 use MaglLegacyApplication\Application\MaglLegacy;
 use MaglLegacyApplication\Options\LegacyControllerOptions;
-use Zend\EventManager\Event;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
 
 class LegacyController extends AbstractActionController
 {
