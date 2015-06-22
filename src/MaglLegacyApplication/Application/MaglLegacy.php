@@ -108,7 +108,7 @@ class MaglLegacy
 
     /**
      *
-     * @param  string  $legacyScriptFilename
+     * @param  string $legacyScriptFilename
      * @return boolean true, if the script filenamename was set, false otherwise, e.g. it has already been set
      */
     public function setLegacyScriptFilename($legacyScriptFilename)
@@ -127,7 +127,7 @@ class MaglLegacy
 
     /**
      *
-     * @param  string  $legacyScriptName
+     * @param  string $legacyScriptName
      * @return boolean true, if the script name was set, false otherwise, e.g. it has already been set
      */
     public function setLegacyScriptName($legacyScriptName)
