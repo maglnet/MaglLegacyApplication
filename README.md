@@ -125,7 +125,7 @@ and send a response to the ZF2 Controller wrapper. This response will then be ha
 ```php
 use MaglLegacyApplication\Application\MaglLegacy;
 $application = MaglLegacy::getInstance()->getApplication();
-$application->getEventManager->getSharedManager()->attach('*', MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, function(Event $e){
+$application->getEventManager()->getSharedManager()->attach('*', MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, function(Event $e){
     $response = new \Zend\Http\Response();
     $response->setStatusCode(404);
     $response->setContent('not found');
