@@ -35,24 +35,23 @@ class ControllerService
      */
     private $routeMatch;
 
-    public function __construct(EventManager $eventManager, MvcEvent $event, RouteMatch $routeMatch)
+    public function __construct(EventManager $eventManager, MvcEvent $event)
     {
         $this->eventManager = $eventManager;
         $this->event = $event;
-        $this->routeMatch = $routeMatch;
     }
 
     public function runControllerAction($controllerName, $action, $params = array())
     {
 
-        $this->routeMatch->setParam('controller', $controllerName);
-        $this->routeMatch->setParam('action', $action);
+        $this->event->getRouteMatch()
+            ->setParam('controller', $controllerName)
+            ->setParam('action', $action);
 
         foreach ($params as $key => $value) {
-            $this->routeMatch->setParam($key, $value);
-
+            $this->event->getRouteMatch()->setParam($key, $value);
         }
-        $this->event->setRouteMatch($this->routeMatch);
+
         $this->eventManager->trigger(MvcEvent::EVENT_DISPATCH, $this->event);
         $result = $this->event->getResult();
 
@@ -60,6 +59,7 @@ class ControllerService
             $e->stopPropagation(true);
             return $result;
         });
+
     }
 
 }

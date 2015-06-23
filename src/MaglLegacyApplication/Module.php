@@ -51,10 +51,10 @@ class Module
                     $event->setApplication($sl->get('Application'));
                     $event->setTarget($sl->get('Application'));
                     $event->setRequest($sl->get('Request'));
+                    $event->setRouter($sl->get('Router'));
+                    $event->setRouteMatch(new RouteMatch(array()));
 
-                    $routeMatch = new RouteMatch(array());
-
-                    return new Service\ControllerService($eventManager, $event, $routeMatch);
+                    return new Service\ControllerService($eventManager, $event);
                 }
             )
         );
