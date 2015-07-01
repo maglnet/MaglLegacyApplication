@@ -13,9 +13,15 @@ use Zend\EventManager\Event;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Http\Response;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use MaglLegacyApplication\Application\MaglLegacy;
+use Zend\Mvc\View\Http\ViewManager;
+use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
+use Zend\View\ViewEvent;
 
 class ControllerService
 {
@@ -41,6 +47,13 @@ class ControllerService
         $this->event = $event;
     }
 
+    /**
+     * @param $controllerName
+     * @param $action
+     * @param array $params
+     * @return string|\Zend\Stdlib\ResponseInterface
+     * @throws \Exception
+     */
     public function runControllerAction($controllerName, $action, $params = array())
     {
 
@@ -52,14 +65,25 @@ class ControllerService
             $this->event->getRouteMatch()->setParam($key, $value);
         }
 
-        $this->eventManager->trigger(MvcEvent::EVENT_DISPATCH, $this->event);
-        $result = $this->event->getResult();
+        $controllerManager = $this->event->getApplication()->getServiceManager()->get('ControllerLoader');
 
-        $this->eventManager->getSharedManager()->attach('*', MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, function (Event $e) use ($result) {
-            $e->stopPropagation(true);
+        /** @var AbstractActionController $controller */
+        $controller = $controllerManager->get($controllerName);
+
+        $controller->setEvent($this->event);
+        $result = $controller->dispatch($this->event->getRequest());
+
+        if($result instanceof Response){
             return $result;
-        });
+        }
 
+        /** @var ViewManager $viewManager */
+        $viewManager = $this->event->getApplication()->getServiceManager()->get('ViewManager');
+        $renderingStrategy = $viewManager->getMvcRenderingStrategy();
+        $this->event->setViewModel($result);
+        $response = $renderingStrategy->render($this->event);
+
+        return $response;
     }
 
 }
