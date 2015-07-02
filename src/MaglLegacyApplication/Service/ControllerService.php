@@ -65,7 +65,8 @@ class ControllerService
             $this->event->getRouteMatch()->setParam($key, $value);
         }
 
-        $controllerManager = $this->event->getApplication()->getServiceManager()->get('ControllerLoader');
+        $serviceManager = $this->event->getApplication()->getServiceManager();
+        $controllerManager = $serviceManager->get('ControllerLoader');
 
         /** @var AbstractActionController $controller */
         $controller = $controllerManager->get($controllerName);
@@ -73,14 +74,26 @@ class ControllerService
         $controller->setEvent($this->event);
         $result = $controller->dispatch($this->event->getRequest());
 
-        if($result instanceof Response){
+        if ($result instanceof Response) {
             return $result;
         }
 
         /** @var ViewManager $viewManager */
-        $viewManager = $this->event->getApplication()->getServiceManager()->get('ViewManager');
+        $viewManager = $serviceManager->get('ViewManager');
         $renderingStrategy = $viewManager->getMvcRenderingStrategy();
+
         $this->event->setViewModel($result);
+
+        /** @var ViewModel $result */
+        if (!$result->terminate()) {
+            $layout = new ViewModel();
+            $layoutTemplate = $renderingStrategy->getLayoutTemplate();
+            $layout->setTemplate($layoutTemplate);
+            $layout->addChild($result);
+            $this->event->setViewModel($layout);
+
+        }
+
         $response = $renderingStrategy->render($this->event);
 
         return $response;
