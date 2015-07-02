@@ -1,10 +1,15 @@
 language: php
-php:
-  - 5.5
-  - 5.4
-  - 5.3
-  - hhvm
-  
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.3
+    - php: 5.4
+    - php: 5.5
+    - php: 5.6
+      env:
+        - EXECUTE_SCRUTINIZER=true
+
 before_script:
   - composer install --dev --no-interaction
   
@@ -12,5 +17,5 @@ script:
   - phpunit -c tests
   
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover tests/log/coverage.xml
+  - if [[ $EXECUTE_SCRUTINIZER != 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar || return 0 ; fi
+  - if [[ $EXECUTE_SCRUTINIZER != 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover tests/log/coverage.xml || return 0 ; fi
