@@ -44,11 +44,7 @@ class LegacyController extends AbstractActionController
             $path = $this->params(('path')) ? $this->params('path') : '';
             foreach ($this->options->getIndexFiles() as $indexFile) {
                 if (file_exists($docroot . '/' . $path . $indexFile)) {
-                    ob_start();
-                    include $docroot . '/' . $path . $indexFile;
-                    $output = ob_get_clean();
-                    $this->getResponse()->setContent($output);
-                    return $this->getResponse();
+                    return $this->runScript($docroot . '/' . $path . $indexFile);
                 }
             }
         }
@@ -74,17 +70,7 @@ class LegacyController extends AbstractActionController
         //inject get and request variables
         $this->setGetVariables();
 
-        ob_start();
-        include $legacyScriptFilename;
-        $output = ob_get_clean();
-
-        $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
-        if ($result->stopped()) {
-            return $result->last();
-        }
-
-        $this->getResponse()->setContent($output);
-        return $this->getResponse();
+        return $this->runScript($legacyScriptFilename);
     }
 
     private function setGetVariables()
@@ -137,11 +123,18 @@ class LegacyController extends AbstractActionController
         return $scriptInfo;
     }
 
-    private function runScript($fileName)
+    private function runScript($scriptFileName)
     {
         ob_start();
-        include $fileName;
+        include $scriptFileName;
         $output = ob_get_clean();
-        return $output;
+
+        $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
+        if ($result->stopped()) {
+            return $result->last();
+        }
+
+        $this->getResponse()->setContent($output);
+        return $this->getResponse();
     }
 }
