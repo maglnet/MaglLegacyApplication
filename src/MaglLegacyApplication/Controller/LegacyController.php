@@ -111,18 +111,6 @@ class LegacyController extends AbstractActionController
         }
     }
 
-    private function getScriptInfo()
-    {
-        $scriptInfo = array();
-
-        $docroot = getcwd() . '/' . $this->options->getDocRoot();
-        $docroot = rtrim($docroot, '/');
-        $scriptInfo['uri'] = '/' . ltrim($this->params('script'), '/'); // force leading '/'
-        $scriptInfo['file_name'] = $docroot . $scriptInfo['uri'];
-
-        return $scriptInfo;
-    }
-
     private function runScript($scriptFileName)
     {
         ob_start();
