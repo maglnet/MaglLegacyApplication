@@ -21,6 +21,17 @@ class LegacyControllerOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($docRoot, $options->getDocRoot());
     }
 
+    public function testSetGetDocRoots()
+    {
+        $options = new \MaglLegacyApplication\Options\LegacyControllerOptions();
+
+        $docRoots = array('/var/www/html/', '/var/www/htdocs');
+
+        $options->setDocRoot($docRoots);
+
+        $this->assertSame($docRoots, $options->getDocRoots());
+    }
+
     public function testSetGetGlobals()
     {
         $options = new \MaglLegacyApplication\Options\LegacyControllerOptions();

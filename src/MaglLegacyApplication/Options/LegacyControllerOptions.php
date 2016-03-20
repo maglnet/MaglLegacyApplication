@@ -10,7 +10,7 @@ namespace MaglLegacyApplication\Options;
 class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
 {
 
-    private $docRoot = 'public';
+    private $docRoot = array('public');
 
     private $indexFiles = array();
 
@@ -20,6 +20,11 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     );
 
     public function getDocRoot()
+    {
+        return reset($this->docRoot);
+    }
+
+    public function getDocRoots()
     {
         return $this->docRoot;
     }
@@ -31,6 +36,9 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
 
     public function setDocRoot($docRoot)
     {
+        if(!is_array($docRoot)) {
+            $docRoot = array($docRoot);
+        }
         $this->docRoot = $docRoot;
     }
 
