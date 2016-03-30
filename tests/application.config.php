@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'magl_legacy_application' => array(
+        'doc_root' => array('public-alternative/'),
+    ),
     'view_manager' => array(
         'template_map' => array(
             'layout/layout' => __DIR__ . '/view/dummy-template.phtml',

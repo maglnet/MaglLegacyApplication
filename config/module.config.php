@@ -7,7 +7,7 @@
 
 return array(
     'magl_legacy_application' => array(
-        'doc_root' => 'public/', // the legacy apps DOCUMENT_ROOT for including files
+        'doc_root' => array('public/'), // the legacy apps DOCUMENT_ROOT (can be more than one) for including files
         'globals' => array(
             'get' => true, // should $_GET be filled with variables from route match?
             'request' => true, // should $_GET be filled with variables from route match?

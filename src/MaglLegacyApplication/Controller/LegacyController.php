@@ -35,42 +35,47 @@ class LegacyController extends AbstractActionController
 
     public function indexAction()
     {
-        $docroot = getcwd() . '/' . $this->options->getDocRoot();
-        $docroot = rtrim($docroot, '/');
+        $docRoots = $this->options->getDocRoots();
+        foreach($docRoots as $key => $docRoot) {
+            $docRoots[$key] = rtrim(getcwd() . '/' . $docRoot);
+        }
 
         $scriptName = $this->params('script');
 
         if (empty($scriptName)) {
             $path = $this->params(('path')) ? $this->params('path') : '';
             foreach ($this->options->getIndexFiles() as $indexFile) {
-                if (file_exists($docroot . '/' . $path . $indexFile)) {
-                    return $this->runScript($docroot . '/' . $path . $indexFile);
+                foreach($docRoots as $docRoot) {
+                    if (file_exists($docRoot . '/' . $path . $indexFile)) {
+                        return $this->runScript($docRoot . '/' . $path . $indexFile);
+                    }
                 }
             }
         }
 
 
         $scriptUri = '/' . ltrim($scriptName, '/'); // force leading '/'
-        $legacyScriptFilename = $docroot . $scriptUri;
+        foreach($docRoots as $docRoot) {
+            $legacyScriptFilename = $docRoot . $scriptUri;
+            if(file_exists($legacyScriptFilename)) {
+                //inform the application about the used script
+                $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
+                $this->legacy->setLegacyScriptName($scriptUri);
 
-        if (!file_exists($legacyScriptFilename)) {
-            // if we're here, the file doesn't really exist and we do not know what to do
-            $response = $this->getResponse();
+                //inject get and request variables
+                $this->setGetVariables();
 
-            /* @var $response Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
-            /** @var Response $response */ // <-- this one for other IDEs and code analyzers :)
-            $response->setStatusCode(404);
-            return;
+                return $this->runScript($legacyScriptFilename);
+            }
         }
 
-        //inform the application about the used script
-        $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
-        $this->legacy->setLegacyScriptName($scriptUri);
+        // if we're here, the file doesn't really exist and we do not know what to do
+        $response = $this->getResponse();
 
-        //inject get and request variables
-        $this->setGetVariables();
-
-        return $this->runScript($legacyScriptFilename);
+        /* @var $response Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
+        /** @var Response $response */ // <-- this one for other IDEs and code analyzers :)
+        $response->setStatusCode(404);
+        return $response;
     }
 
     private function setGetVariables()

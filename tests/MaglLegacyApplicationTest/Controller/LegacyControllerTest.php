@@ -7,6 +7,9 @@
 
 namespace MaglLegacyApplicationTest\Controller;
 
+use MaglLegacyApplication\Options\LegacyControllerOptions;
+use MaglLegacyApplicationTest\Bootstrap;
+
 class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase
 {
 
@@ -30,6 +33,15 @@ class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
     public function testIndexAction()
     {
         $this->dispatch('/legacy-index.php');
+
+        $this->assertEquals(200, $this->getResponseStatusCode());
+
+        $this->defaultControllerCheck();
+    }
+
+    public function testFindFileInSecondDocRoot()
+    {
+        $this->dispatch('/legacy-index-alternative.php');
 
         $this->assertEquals(200, $this->getResponseStatusCode());
 
