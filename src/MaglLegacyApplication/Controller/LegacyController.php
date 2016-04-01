@@ -47,6 +47,7 @@ class LegacyController extends AbstractActionController
             foreach ($this->options->getIndexFiles() as $indexFile) {
                 foreach($docRoots as $docRoot) {
                     if (file_exists($docRoot . '/' . $path . $indexFile)) {
+                        $this->legacy->setLegacyScriptName($path . $indexFile);
                         return $this->runScript($docRoot . '/' . $path . $indexFile);
                     }
                 }
@@ -59,7 +60,6 @@ class LegacyController extends AbstractActionController
             $legacyScriptFilename = $docRoot . $scriptUri;
             if(file_exists($legacyScriptFilename)) {
                 //inform the application about the used script
-                $this->legacy->setLegacyScriptFilename($legacyScriptFilename);
                 $this->legacy->setLegacyScriptName($scriptUri);
 
                 //inject get and request variables
@@ -118,6 +118,8 @@ class LegacyController extends AbstractActionController
 
     private function runScript($scriptFileName)
     {
+        $this->legacy->setLegacyScriptFilename($scriptFileName);
+
         ob_start();
         include $scriptFileName;
         $output = ob_get_clean();
