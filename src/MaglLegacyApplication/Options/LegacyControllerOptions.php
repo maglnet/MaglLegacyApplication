@@ -19,6 +19,8 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
         'request' => true,
     );
 
+    private $prependOutputBufferToResponse = false;
+
     public function getDocRoot()
     {
         return reset($this->docRoot);
@@ -62,4 +64,22 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->indexFiles = $indexFiles;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getPrependOutputBufferToResponse()
+    {
+        return $this->prependOutputBufferToResponse;
+    }
+
+    /**
+     * @param boolean $prependOutputBufferToResponse
+     */
+    public function setPrependOutputBufferToResponse($prependOutputBufferToResponse)
+    {
+        $this->prependOutputBufferToResponse = $prependOutputBufferToResponse;
+    }
+
+
 }

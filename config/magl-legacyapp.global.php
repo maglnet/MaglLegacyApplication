@@ -11,5 +11,8 @@ return array(
             'get' => true, // should $_GET be filled with variables from route match?
             'request' => true, // should $_GET be filled with variables from route match?
         ),
+        // when short circuiting a response, it could be needed to prepend the output buffer to the response,
+        // enable this to prepend the output buffer
+        'prepend_output_buffer_to_response' => false,
     ),
 );

@@ -126,6 +126,9 @@ class LegacyController extends AbstractActionController
 
         $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
         if ($result->stopped()) {
+            if($this->options->getPrependOutputBufferToResponse()) {
+                $result->last()->setContent($output . $result->last()->getContent());
+            }
             return $result->last();
         }
 
