@@ -20,7 +20,7 @@ class MaglLegacy
 
     /**
      *
-     * @var \Zend\Mvc\Application
+     * @var \Zend\Mvc\ApplicationInterface
      */
     private $application;
 
@@ -72,7 +72,7 @@ class MaglLegacy
 
     /**
      *
-     * @return \Zend\Mvc\Application
+     * @return \Zend\Mvc\ApplicationInterface
      */
     public function getApplication()
     {
@@ -81,7 +81,7 @@ class MaglLegacy
 
     /**
      *
-     * @return \Zend\ServiceManager\ServiceManager
+     * @return \Zend\ServiceManager\ServiceLocatorInterface
      */
     public static function getServiceManager()
     {
