@@ -7,11 +7,17 @@
 
 namespace MaglLegacyApplication;
 
+use MaglLegacyApplication\Application\MaglLegacy;
+use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
+    public function onBootstrap(MvcEvent $event)
+    {
+        MaglLegacy::getInstance()->setApplication($event->getApplication());
+    }
 
     public function getConfig()
     {
