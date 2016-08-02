@@ -65,7 +65,7 @@ class MaglLegacy
         return null;
     }
 
-    public function setApplication(\Zend\Mvc\Application $application)
+    public function setApplication(\Zend\Mvc\ApplicationInterface $application)
     {
         $this->application = $application;
     }
@@ -90,7 +90,7 @@ class MaglLegacy
 
     /**
      *
-     * @return \Zend\EventManager\EventManager
+     * @return \Zend\EventManager\EventManagerInterface
      */
     public static function getEventManager()
     {
