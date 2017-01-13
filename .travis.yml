@@ -14,8 +14,8 @@ matrix:
         - PREFER_LOWEST=true
 
 before_script:
-  - if [ -z "$PREFER_LOWEST" ]; composer update --no-interaction
-  - if [ "$PREFER_LOWEST" == 'true' ]; composer update --no-interaction --prefer-lowest
+  - if [ -z "$PREFER_LOWEST" ]; then composer update --no-interaction; fi
+  - if [ "$PREFER_LOWEST" == 'true' ]; then composer update --no-interaction --prefer-lowest; fi
 
 script:
   - phpunit -c tests
