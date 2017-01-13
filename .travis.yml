@@ -10,8 +10,13 @@ matrix:
       env:
         - EXECUTE_SCRUTINIZER=true
 
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+
 before_script:
-  - composer install --dev --no-interaction
+  - composer update --no-interaction $PREFER_LOWEST
   
 script:
   - phpunit -c tests
