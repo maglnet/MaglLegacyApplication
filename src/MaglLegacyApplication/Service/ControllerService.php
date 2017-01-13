@@ -18,7 +18,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use MaglLegacyApplication\Application\MaglLegacy;
+use Zend\Mvc\View\Http\DefaultRenderingStrategy;
 use Zend\Mvc\View\Http\ViewManager;
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Zend\View\ViewEvent;
@@ -78,20 +80,25 @@ class ControllerService
             return $result;
         }
 
-        /** @var ViewManager $viewManager */
-        $viewManager = $serviceManager->get('ViewManager');
-        $renderingStrategy = $viewManager->getMvcRenderingStrategy();
+        /** @var DefaultRenderingStrategy $renderingStrategy */
+        $renderingStrategy = null;
+        foreach (array('HttpDefaultRenderingStrategy', 'DefaultRenderingStrategy') as $serviceName) {
+            if ($serviceManager->has($serviceName)) {
+                $renderingStrategy = $serviceManager->get($serviceName);
+            }
+        }
 
         $this->event->setViewModel($result);
 
-        /** @var ViewModel $result */
-        if (!$result->terminate()) {
-            $layout = new ViewModel();
-            $layoutTemplate = $renderingStrategy->getLayoutTemplate();
-            $layout->setTemplate($layoutTemplate);
-            $layout->addChild($result);
-            $this->event->setViewModel($layout);
-
+        if($renderingStrategy instanceof DefaultRenderingStrategy) {
+            /** @var ViewModel $result */
+            if (!$result->terminate()) {
+                $layout = new ViewModel();
+                $layoutTemplate = $renderingStrategy->getLayoutTemplate();
+                $layout->setTemplate($layoutTemplate);
+                $layout->addChild($result);
+                $this->event->setViewModel($layout);
+            }
         }
 
         $response = $renderingStrategy->render($this->event);
