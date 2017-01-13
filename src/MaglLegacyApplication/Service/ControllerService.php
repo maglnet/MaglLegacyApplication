@@ -90,7 +90,7 @@ class ControllerService
 
         $this->event->setViewModel($result);
 
-        if($renderingStrategy instanceof DefaultRenderingStrategy) {
+        if ($renderingStrategy instanceof DefaultRenderingStrategy) {
             /** @var ViewModel $result */
             if (!$result->terminate()) {
                 $layout = new ViewModel();
@@ -101,9 +101,7 @@ class ControllerService
             }
         }
 
-        $response = $renderingStrategy->render($this->event);
-
-        return $response;
+        return $renderingStrategy->render($this->event);
     }
 
 }
