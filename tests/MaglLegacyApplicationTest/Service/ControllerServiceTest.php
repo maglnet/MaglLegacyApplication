@@ -11,6 +11,9 @@ namespace MaglLegacyApplicationTest\Service;
 
 use MaglLegacyApplication\Service\ControllerService;
 use MaglLegacyApplicationTest\Bootstrap;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Controller\ControllerManager;
+use Zend\View\Model\ViewModel;
 
 class ControllerServiceTest extends \PHPUnit_Framework_TestCase {
 
@@ -29,6 +32,20 @@ class ControllerServiceTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('MaglLegacyApplication\Service\ControllerService', $this->instance);
     }
 
+    public function testRunControllerAction()
+    {
+        /** @var ControllerManager $controllerManager */
+        $controllerManager = Bootstrap::getServiceManager()->get('ControllerManager');
+        $controllerManager->setService('TestController', new TestController());
+        $this->instance->runControllerAction('TestController', 'test');
+    }
 
+}
 
+class TestController extends AbstractActionController
+{
+    public function testAction()
+    {
+        return new ViewModel();
+    }
 }
