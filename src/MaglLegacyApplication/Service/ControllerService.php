@@ -82,7 +82,7 @@ class ControllerService
 
         /** @var DefaultRenderingStrategy $renderingStrategy */
         $renderingStrategy = null;
-        foreach (['HttpDefaultRenderingStrategy', 'DefaultRenderingStrategy'] as $serviceName) {
+        foreach (array('HttpDefaultRenderingStrategy', 'DefaultRenderingStrategy') as $serviceName) {
             if ($serviceManager->has($serviceName)) {
                 $renderingStrategy = $serviceManager->get($serviceName);
             }
