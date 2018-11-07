@@ -18,7 +18,7 @@ before_script:
   - if [ "$PREFER_LOWEST" == 'true' ]; then composer update --no-interaction --prefer-lowest; fi
 
 script:
-  - phpunit -c tests
+  - vendor/bin/phpunit -c tests
   
 after_script:
   - if [[ $EXECUTE_SCRUTINIZER == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar || return 0 ; fi
