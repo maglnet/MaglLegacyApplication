@@ -9,6 +9,7 @@ namespace MaglLegacyApplicationTest\Controller;
 
 use MaglLegacyApplication\Options\LegacyControllerOptions;
 use MaglLegacyApplicationTest\Bootstrap;
+use Zend\View\Model\ViewModel;
 
 class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase
 {
@@ -69,6 +70,16 @@ class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
         //testing if get and request are now set
         $this->assertEquals('bar', $_GET['foo']);
         $this->assertEquals('bar', $_REQUEST['foo']);
+
+        $this->defaultControllerCheck();
+    }
+
+    public function testControllerReturnsGivenViewModel()
+    {
+        $this->dispatch('/returning-legacy-template.php');
+
+        $this->assertEquals(200, $this->getResponseStatusCode());
+        $this->assertTemplateName("legacy-template");
 
         $this->defaultControllerCheck();
     }

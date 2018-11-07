@@ -11,6 +11,7 @@ use MaglLegacyApplication\Application\MaglLegacy;
 use MaglLegacyApplication\Options\LegacyControllerOptions;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class LegacyController extends AbstractActionController
 {
@@ -121,8 +122,12 @@ class LegacyController extends AbstractActionController
         $this->legacy->setLegacyScriptFilename($scriptFileName);
 
         ob_start();
-        include $scriptFileName;
+        $result = include $scriptFileName;
         $output = ob_get_clean();
+
+        if ($result instanceof ViewModel) {
+            return $result;
+        }
 
         $result = $this->getEventManager()->trigger(MaglLegacy::EVENT_SHORT_CIRCUIT_RESPONSE, $this);
         if ($result->stopped()) {

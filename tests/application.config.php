@@ -6,6 +6,7 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
+            'legacy-template' => __DIR__ . '/view/legacy-template.phtml',
             'layout/layout' => __DIR__ . '/view/dummy-template.phtml',
             'error' => __DIR__ . '/view/dummy-template.phtml',
             '404' => __DIR__ . '/view/dummy-template.phtml',
