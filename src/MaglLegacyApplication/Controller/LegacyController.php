@@ -125,7 +125,7 @@ class LegacyController extends AbstractActionController
         $result = include $scriptFileName;
         $output = ob_get_clean();
 
-        if ($result instanceof ViewModel) {
+        if ($result instanceof ViewModel || $result instanceof Response) {
             return $result;
         }
 

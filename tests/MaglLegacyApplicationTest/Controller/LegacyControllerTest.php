@@ -83,4 +83,14 @@ class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
 
         $this->defaultControllerCheck();
     }
+
+    public function testControllerReturnsResponse()
+    {
+        $this->dispatch('/returning-legacy-response.php');
+
+        $this->assertEquals(418, $this->getResponseStatusCode());
+        $this->assertEquals('myResponse', $this->getResponse()->getContent());
+
+        $this->defaultControllerCheck();
+    }
 }
