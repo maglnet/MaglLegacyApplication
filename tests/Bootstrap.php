@@ -38,7 +38,8 @@ class Bootstrap
                 )
             ),
             'modules' => array(
-                'MaglLegacyApplication'
+                'Zend\Router',
+                'MaglLegacyApplication',
             ),
         );
 

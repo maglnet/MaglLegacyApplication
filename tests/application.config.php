@@ -16,7 +16,7 @@ return array(
         'routes' => array(
             // example for transferring mod rewrite rules to zf2 routes
             'legacy-seo-calendar' => array(
-                'type' => 'Zend\Mvc\Router\Http\Regex',
+                'type' => 'Regex',
                 'options' => array(
                     'regex' => '/calendar/(?<foo>.+)',
                     'defaults' => array(

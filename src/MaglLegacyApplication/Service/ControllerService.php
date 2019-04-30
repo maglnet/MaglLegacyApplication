@@ -16,7 +16,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\RouteMatch;
 use MaglLegacyApplication\Application\MaglLegacy;
 use Zend\Mvc\View\Http\DefaultRenderingStrategy;
 use Zend\Mvc\View\Http\ViewManager;
@@ -68,7 +68,7 @@ class ControllerService
         }
 
         $serviceManager = $this->event->getApplication()->getServiceManager();
-        $controllerManager = $serviceManager->get('ControllerLoader');
+        $controllerManager = $serviceManager->get('ControllerManager');
 
         /** @var AbstractActionController $controller */
         $controller = $controllerManager->get($controllerName);

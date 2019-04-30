@@ -8,8 +8,9 @@
 namespace MaglLegacyApplication;
 
 use MaglLegacyApplication\Application\MaglLegacy;
+use Psr\Container\ContainerInterface;
 use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Router\RouteMatch;
 use Zend\ServiceManager\ServiceManager;
 
 class Module
@@ -28,8 +29,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'MaglLegacyApplication\Controller\Legacy' => function ($sl) {
-                    $options = $sl->getServiceLocator()->get('MaglLegacyApplicationOptions');
+                'MaglLegacyApplication\Controller\Legacy' => function (ContainerInterface $container) {
+
+                    $options = $container->get('MaglLegacyApplicationOptions');
 
                     $legacyApp = Application\MaglLegacy::getInstance();
 
@@ -43,13 +45,13 @@ class Module
     {
         return array(
             'factories' => array(
-                'MaglLegacyApplicationOptions' => function ($sl) {
+                'MaglLegacyApplicationOptions' => function (ContainerInterface $sl) {
                     $config = $sl->get('Config');
                     $options = $config['magl_legacy_application'];
 
                     return new Options\LegacyControllerOptions($options);
                 },
-                'MaglControllerService' => function (ServiceManager $sl) {
+                'MaglControllerService' => function (ContainerInterface $sl) {
 
                     $eventManager = $sl->get('Application')->getEventManager();
 

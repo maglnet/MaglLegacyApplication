@@ -16,7 +16,7 @@ return array(
     'router' => array(
         'routes' => array(
             'legacy' => array(
-                'type' => 'Zend\Mvc\Router\Http\Regex',
+                'type' => 'Regex',
                 'options' => array(
                     'regex'    => '(?<script>.+\.php)|/',
                     'defaults' => array(

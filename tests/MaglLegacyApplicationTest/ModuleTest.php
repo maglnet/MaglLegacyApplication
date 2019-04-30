@@ -79,7 +79,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 //$this->markTestSkipped();
         $sm = Bootstrap::getServiceManager();
 
-        $controller = $sm->get('ControllerLoader')->get('MaglLegacyApplication\Controller\Legacy');
+        $controller = $sm->get('ControllerManager')->get('MaglLegacyApplication\Controller\Legacy');
 
         $this->assertInstanceOf('\MaglLegacyApplication\Controller\LegacyController', $controller);
     }
