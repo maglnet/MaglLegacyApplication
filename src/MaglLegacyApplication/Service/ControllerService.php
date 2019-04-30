@@ -9,21 +9,13 @@
 namespace MaglLegacyApplication\Service;
 
 
-use Zend\EventManager\Event;
 use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
 use Zend\Router\RouteMatch;
-use MaglLegacyApplication\Application\MaglLegacy;
 use Zend\Mvc\View\Http\DefaultRenderingStrategy;
-use Zend\Mvc\View\Http\ViewManager;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use Zend\View\ViewEvent;
 
 class ControllerService
 {
