@@ -70,13 +70,9 @@ class LegacyController extends AbstractActionController
             }
         }
 
-        // if we're here, the file doesn't really exist and we do not know what to do
+        /** @var Response $response */
         $response = $this->getResponse();
-
-        /* @var $response Response */ //<-- this one for netbeans (WHY, NetBeans, WHY??)
-        /** @var Response $response */ // <-- this one for other IDEs and code analyzers :)
         $response->setStatusCode(404);
-        return $response;
     }
 
     private function setGetVariables()
