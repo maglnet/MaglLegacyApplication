@@ -9,6 +9,7 @@ namespace MaglLegacyApplicationTest\Controller;
 
 use MaglLegacyApplication\Options\LegacyControllerOptions;
 use MaglLegacyApplicationTest\Bootstrap;
+use Zend\Stdlib\ResponseInterface;
 use Zend\View\Model\ViewModel;
 
 class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase
@@ -53,6 +54,16 @@ class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
     {
         $this->dispatch('/no-index.php');
         $this->assertEquals(404, $this->getResponseStatusCode());
+
+        $this->defaultControllerCheck();
+    }
+
+    public function testMustNotReturnResponseOnDefault404()
+    {
+        $this->dispatch('/no-index.php');
+
+        $this->assertEquals(404, $this->getResponseStatusCode());
+        $this->assertNotInstanceOf(ResponseInterface::class, $this->getApplication()->getMvcEvent()->getResult());
 
         $this->defaultControllerCheck();
     }
