@@ -38,10 +38,14 @@ class Bootstrap
                 )
             ),
             'modules' => array(
-                'Zend\Router',
+
                 'MaglLegacyApplication',
             ),
         );
+
+        if (class_exists('\Zend\Router\Module')) {
+            $config['modules'][] = 'Zend\Router';
+        }
 
         $app = Application::init($config);
         \MaglLegacyApplication\Application\MaglLegacy::getInstance()->setApplication($app);

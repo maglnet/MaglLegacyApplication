@@ -5,7 +5,22 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
+use MaglLegacyApplication\Factory\ControllerServiceFactory;
+use MaglLegacyApplication\Factory\LegacyControllerFactory;
+use MaglLegacyApplication\Factory\LegacyControllerOptionsFactory;
+
 return array(
+    'service_manager' => array(
+        'factories' => array(
+            'MaglLegacyApplicationOptions' => LegacyControllerOptionsFactory::class,
+            'MaglControllerService' => ControllerServiceFactory::class,
+        ),
+    ),
+    'controllers' => array(
+        'factories' => array(
+            'MaglLegacyApplication\Controller\Legacy' => LegacyControllerFactory::class,
+        ),
+    ),
     'magl_legacy_application' => array(
         'doc_root' => array('public/'), // the legacy apps DOCUMENT_ROOT (can be more than one) for including files
         'globals' => array(
