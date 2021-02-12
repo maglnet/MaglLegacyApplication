@@ -122,6 +122,9 @@ class LegacyController extends AbstractActionController
         $output = ob_get_clean();
 
         if ($result instanceof ViewModel || $result instanceof Response) {
+            if ($this->options->getPrependOutputBufferToResponse()) {
+                echo $output;
+            }
             return $result;
         }
 
