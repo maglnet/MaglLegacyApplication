@@ -9,9 +9,7 @@ matrix:
     - php: 7.3
       env:
         - EXECUTE_SCRUTINIZER=true
-    - php: 7.0
-      env:
-        - PREFER_LOWEST=true
+        - XDEBUG_MODE=coverage
 
 before_script:
   - if [ -z "$PREFER_LOWEST" ]; then composer update --no-interaction; fi
