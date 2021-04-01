@@ -7,11 +7,11 @@
 
 namespace MaglLegacyApplication\Controller;
 
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 use MaglLegacyApplication\Application\MaglLegacy;
 use MaglLegacyApplication\Options\LegacyControllerOptions;
-use Zend\Http\Response;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
 class LegacyController extends AbstractActionController
 {
@@ -37,7 +37,7 @@ class LegacyController extends AbstractActionController
     public function indexAction()
     {
         $docRoots = $this->options->getDocRoots();
-        foreach($docRoots as $key => $docRoot) {
+        foreach ($docRoots as $key => $docRoot) {
             $docRoots[$key] = rtrim(getcwd() . '/' . $docRoot);
         }
 
@@ -46,7 +46,7 @@ class LegacyController extends AbstractActionController
         if (empty($scriptName)) {
             $path = $this->params(('path')) ? $this->params('path') : '';
             foreach ($this->options->getIndexFiles() as $indexFile) {
-                foreach($docRoots as $docRoot) {
+                foreach ($docRoots as $docRoot) {
                     if (is_file($docRoot . '/' . $path . $indexFile)) {
                         $this->legacy->setLegacyScriptName($path . $indexFile);
                         return $this->runScript($docRoot . '/' . $path . $indexFile);
@@ -55,11 +55,10 @@ class LegacyController extends AbstractActionController
             }
         }
 
-
         $scriptUri = '/' . ltrim($scriptName, '/'); // force leading '/'
-        foreach($docRoots as $docRoot) {
+        foreach ($docRoots as $docRoot) {
             $legacyScriptFilename = $docRoot . $scriptUri;
-            if(is_file($legacyScriptFilename)) {
+            if (is_file($legacyScriptFilename)) {
                 //inform the application about the used script
                 $this->legacy->setLegacyScriptName($scriptUri);
 
@@ -102,7 +101,6 @@ class LegacyController extends AbstractActionController
         $routeParams = $this->getEvent()->getRouteMatch()->getParams();
 
         foreach ($routeParams as $paramName => $paramValue) {
-
             if ($globals_options['get'] && !isset($_GET[$paramName])) {
                 $_GET[$paramName] = $paramValue;
             }

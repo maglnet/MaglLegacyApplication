@@ -7,6 +7,10 @@
 
 namespace MaglLegacyApplication\Application;
 
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mvc\ApplicationInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+
 class MaglLegacy
 {
 
@@ -20,7 +24,7 @@ class MaglLegacy
 
     /**
      *
-     * @var \Zend\Mvc\ApplicationInterface
+     * @var ApplicationInterface
      */
     private $application;
 
@@ -65,14 +69,14 @@ class MaglLegacy
         return null;
     }
 
-    public function setApplication(\Zend\Mvc\ApplicationInterface $application)
+    public function setApplication(ApplicationInterface $application)
     {
         $this->application = $application;
     }
 
     /**
      *
-     * @return \Zend\Mvc\ApplicationInterface
+     * @return ApplicationInterface
      */
     public function getApplication()
     {
@@ -81,7 +85,7 @@ class MaglLegacy
 
     /**
      *
-     * @return \Zend\ServiceManager\ServiceLocatorInterface
+     * @return ServiceLocatorInterface
      */
     public static function getServiceManager()
     {
@@ -90,7 +94,7 @@ class MaglLegacy
 
     /**
      *
-     * @return \Zend\EventManager\EventManagerInterface
+     * @return EventManagerInterface
      */
     public static function getEventManager()
     {
@@ -108,7 +112,7 @@ class MaglLegacy
 
     /**
      *
-     * @param  string $legacyScriptFilename
+     * @param string $legacyScriptFilename
      * @return boolean true, if the script filenamename was set, false otherwise, e.g. it has already been set
      */
     public function setLegacyScriptFilename($legacyScriptFilename)
@@ -127,7 +131,7 @@ class MaglLegacy
 
     /**
      *
-     * @param  string $legacyScriptName
+     * @param string $legacyScriptName
      * @return boolean true, if the script name was set, false otherwise, e.g. it has already been set
      */
     public function setLegacyScriptName($legacyScriptName)

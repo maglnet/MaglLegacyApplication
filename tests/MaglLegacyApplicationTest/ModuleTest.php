@@ -3,13 +3,14 @@
 namespace MaglLegacyApplicationTest;
 
 use MaglLegacyApplication\Module;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Description of ModuleTest
  *
  * @author matthias
  */
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ModuleTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -39,7 +40,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->instance->getAutoloaderConfig();
 
-        $this->assertTrue(array_key_exists('MaglLegacyApplication', $config['Zend\Loader\StandardAutoloader']['namespaces']));
+        $this->assertTrue(array_key_exists('MaglLegacyApplication', $config['Laminas\Loader\StandardAutoloader']['namespaces']));
     }
 
     public function testGetServiceFactories()

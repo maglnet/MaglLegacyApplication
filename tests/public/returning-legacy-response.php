@@ -1,6 +1,6 @@
 <?php
 
-$response = new \Zend\Http\Response();
+$response = new \Laminas\Http\Response();
 $response->setContent('myResponse');
 $response->setStatusCode(418);
 return $response;

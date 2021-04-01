@@ -8,14 +8,15 @@
 
 namespace MaglLegacyApplicationTest\Service;
 
-
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\ControllerManager;
+use Laminas\View\Model\ViewModel;
 use MaglLegacyApplication\Service\ControllerService;
 use MaglLegacyApplicationTest\Bootstrap;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\Controller\ControllerManager;
-use Zend\View\Model\ViewModel;
+use PHPUnit_Framework_TestCase;
 
-class ControllerServiceTest extends \PHPUnit_Framework_TestCase {
+class ControllerServiceTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @var ControllerService
