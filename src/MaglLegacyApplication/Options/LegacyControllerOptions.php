@@ -7,7 +7,9 @@
 
 namespace MaglLegacyApplication\Options;
 
-class LegacyControllerOptions extends \Laminas\Stdlib\AbstractOptions
+use Laminas\Stdlib\AbstractOptions;
+
+class LegacyControllerOptions extends AbstractOptions
 {
 
     private $docRoot = array('public');
