@@ -7,7 +7,9 @@
 
 namespace MaglLegacyApplicationTest\Options;
 
-class LegacyControllerOptionsTest extends \PHPUnit_Framework_TestCase
+use PHPUnit_Framework_TestCase;
+
+class LegacyControllerOptionsTest extends PHPUnit_Framework_TestCase
 {
 
     public function testSetGetDocRoot()

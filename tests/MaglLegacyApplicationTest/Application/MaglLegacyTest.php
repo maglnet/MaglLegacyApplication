@@ -15,7 +15,6 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
 
     public function testGetInstance()
     {
-
         $instance = MaglLegacy::getInstance();
         $this->assertInstanceOf('\MaglLegacyApplication\Application\MaglLegacy', $instance);
 
@@ -91,7 +90,6 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
 
     public function testSetGetApplication()
     {
-
         $appMock = $this->getMockBuilder('Laminas\Mvc\Application')
             ->disableOriginalConstructor()
             ->getMock();

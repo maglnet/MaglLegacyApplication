@@ -3,13 +3,14 @@
 namespace MaglLegacyApplicationTest;
 
 use MaglLegacyApplication\Module;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Description of ModuleTest
  *
  * @author matthias
  */
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ModuleTest extends PHPUnit_Framework_TestCase
 {
 
     /**
