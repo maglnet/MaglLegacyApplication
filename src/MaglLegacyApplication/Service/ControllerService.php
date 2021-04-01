@@ -8,14 +8,14 @@
 
 namespace MaglLegacyApplication\Service;
 
-
-use Zend\EventManager\EventManager;
-use Zend\Http\Response;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\RouteMatch;
-use Zend\Mvc\View\Http\DefaultRenderingStrategy;
-use Zend\View\Model\ViewModel;
+use Laminas\EventManager\EventManager;
+use Laminas\Http\Response;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\View\Http\DefaultRenderingStrategy;
+use Laminas\Router\RouteMatch;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\ViewModel;
 
 class ControllerService
 {
@@ -45,12 +45,11 @@ class ControllerService
      * @param $controllerName
      * @param $action
      * @param array $params
-     * @return string|\Zend\Stdlib\ResponseInterface
+     * @return string|ResponseInterface
      * @throws \Exception
      */
     public function runControllerAction($controllerName, $action, $params = array())
     {
-
         $this->event->getRouteMatch()
             ->setParam('controller', $controllerName)
             ->setParam('action', $action);
@@ -95,5 +94,4 @@ class ControllerService
 
         return $renderingStrategy->render($this->event);
     }
-
 }

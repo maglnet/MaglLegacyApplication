@@ -1,10 +1,14 @@
 {
     "name": "maglnet/magl-legacy-application",
     "type": "library",
-    "description": "Provides a ZF2 module that is able to run legacy applications with the power of ZF2.",
+    "description": "Provides a laminas module that is able to run legacy applications with the power of laminas.",
     "homepage": "https://github.com/maglnet/MaglLegacyApplication",
     "license": "BSD-3-Clause",
-    "keywords": ["legacy", "legacy application", "zend framework", "zf2"],
+    "keywords": [
+        "legacy",
+        "legacy application",
+        "laminas"
+    ],
     "support": {
         "source": "https://github.com/maglnet/MaglLegacyApplication",
         "issues": "https://github.com/maglnet/MaglLegacyApplication/issues"
@@ -18,18 +22,22 @@
     ],
     "require": {
         "php": "^7.0",
-        "zendframework/zendframework": "^2.5 || ^3.0",
-        "zendframework/zend-servicemanager": "^2.6 || ^3.0",
-        "zendframework/zend-mvc": "^2.5 || ^3.0"
+        "laminas/laminas-eventmanager": "^3.0",
+        "laminas/laminas-http": "^2.0",
+        "laminas/laminas-mvc": "^3.0",
+        "laminas/laminas-router": "^3.0",
+        "laminas/laminas-servicemanager": "^3.0",
+        "laminas/laminas-stdlib": "^3.0",
+        "laminas/laminas-view": "^2.5"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "zendframework/zend-modulemanager": "^2.5",
-        "zendframework/zend-view": "^2.5",
-        "zendframework/zend-router": "^2.5 || ^3.3"
+        "laminas/laminas-modulemanager": "^2.5",
+        "laminas/laminas-test": "^3.0",
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
-        "classmap": ["src"],
-        "psr-0": {"MaglLegacyApplication": "src"}
+        "psr-4": {
+            "MaglLegacyApplication\\": "src/MaglLegacyApplication"
+        }
     }
 }

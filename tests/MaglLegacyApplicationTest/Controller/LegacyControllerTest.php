@@ -9,10 +9,10 @@ namespace MaglLegacyApplicationTest\Controller;
 
 use MaglLegacyApplication\Options\LegacyControllerOptions;
 use MaglLegacyApplicationTest\Bootstrap;
-use Zend\Stdlib\ResponseInterface;
-use Zend\View\Model\ViewModel;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Model\ViewModel;
 
-class LegacyControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase
+class LegacyControllerTest extends \Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase
 {
 
     protected $traceError = true;

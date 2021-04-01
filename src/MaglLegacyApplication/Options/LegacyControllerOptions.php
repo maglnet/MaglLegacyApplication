@@ -7,7 +7,7 @@
 
 namespace MaglLegacyApplication\Options;
 
-class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
+class LegacyControllerOptions extends \Laminas\Stdlib\AbstractOptions
 {
 
     private $docRoot = array('public');
@@ -38,7 +38,7 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
 
     public function setDocRoot($docRoot)
     {
-        if(!is_array($docRoot)) {
+        if (!is_array($docRoot)) {
             $docRoot = array($docRoot);
         }
         $this->docRoot = $docRoot;
@@ -80,6 +80,4 @@ class LegacyControllerOptions extends \Zend\Stdlib\AbstractOptions
     {
         $this->prependOutputBufferToResponse = $prependOutputBufferToResponse;
     }
-
-
 }

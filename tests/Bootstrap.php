@@ -3,8 +3,8 @@
 namespace MaglLegacyApplicationTest;
 
 use RuntimeException;
-use Zend\Loader\AutoloaderFactory;
-use Zend\Mvc\Application;
+use Laminas\Loader\AutoloaderFactory;
+use Laminas\Mvc\Application;
 
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
@@ -43,8 +43,8 @@ class Bootstrap
             ),
         );
 
-        if (class_exists('\Zend\Router\Module')) {
-            $config['modules'][] = 'Zend\Router';
+        if (class_exists('\Laminas\Router\Module')) {
+            $config['modules'][] = 'Laminas\Router';
         }
 
         $app = Application::init($config);
@@ -54,7 +54,7 @@ class Bootstrap
 
     /**
      *
-     * @return \Zend\ServiceManager\ServiceManager
+     * @return \Laminas\ServiceManager\ServiceManager
      */
     public static function getServiceManager()
     {
@@ -73,7 +73,7 @@ class Bootstrap
         }
 
         AutoloaderFactory::factory(array(
-            'Zend\Loader\StandardAutoloader' => array(
+            'Laminas\Loader\StandardAutoloader' => array(
                 'autoregister_zf' => true,
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,

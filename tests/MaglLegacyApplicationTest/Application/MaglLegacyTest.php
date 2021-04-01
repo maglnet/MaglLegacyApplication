@@ -92,7 +92,7 @@ class MaglLegacyTest extends PHPUnit_Framework_TestCase
     public function testSetGetApplication()
     {
 
-        $appMock = $this->getMockBuilder('Zend\Mvc\Application')
+        $appMock = $this->getMockBuilder('Laminas\Mvc\Application')
             ->disableOriginalConstructor()
             ->getMock();
 

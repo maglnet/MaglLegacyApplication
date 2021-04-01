@@ -7,28 +7,41 @@
 
 namespace MaglLegacyApplication;
 
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\AutoloaderProviderInterface;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\Mvc\MvcEvent;
 use MaglLegacyApplication\Application\MaglLegacy;
-use Psr\Container\ContainerInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Router\RouteMatch;
-use Zend\ServiceManager\ServiceManager;
 
-class Module
+class Module implements BootstrapListenerInterface, ConfigProviderInterface, AutoloaderProviderInterface
 {
-    public function onBootstrap(MvcEvent $event)
+
+    /**
+     * @inheritDoc
+     */
+    public function onBootstrap(EventInterface $event)
     {
-        MaglLegacy::getInstance()->setApplication($event->getApplication());
+        if ($event instanceof MvcEvent) {
+            MaglLegacy::getInstance()->setApplication($event->getApplication());
+        }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getConfig()
     {
-        return include realpath(__DIR__ . '/../../config/module.config.php');
+        return include __DIR__ . '/../../config/module.config.php';
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getAutoloaderConfig()
     {
         return array(
-            'Zend\Loader\StandardAutoloader' => array(
+            'Laminas\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__,
                 ),

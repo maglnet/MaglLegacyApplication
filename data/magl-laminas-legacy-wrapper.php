@@ -1,10 +1,10 @@
 <?php
 /**
  * This is the index.php from the zf2 skeleton application
- * it was renamed to index-zf2-wrapper.php since the
+ * it was renamed to magl-laminas-legacy-wrapper.php since the
  * legacy application could have (and possibly already has) an index.php
  *
- * additionally it uses MaglLegacyApplication::run() to be able to access the ZF2 mvc application from
+ * additionally it uses MaglLegacyApplication::run() to be able to access the Laminas mvc application from
  * within your legacy application
  */
 
@@ -22,6 +22,6 @@ require 'init_autoloader.php';
 // you do not need this, if MaglLegacyApplication is installed through composer
 require_once realpath(__DIR__ . '/../module/MaglLegacyApplication/src/MaglLegacyApplication/Application/MaglLegacy.php');
 
-$application = Zend\Mvc\Application::init(require 'config/application.config.php');
+$application = Laminas\Mvc\Application::init(require 'config/application.config.php');
 \MaglLegacyApplication\Application\MaglLegacy::getInstance()->setApplication($application);
 $application->run();

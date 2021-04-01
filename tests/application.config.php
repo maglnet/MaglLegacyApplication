@@ -14,7 +14,7 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            // example for transferring mod rewrite rules to zf2 routes
+            // example for transferring mod rewrite rules to laminas routes
             'legacy-seo-calendar' => array(
                 'type' => 'Regex',
                 'options' => array(
