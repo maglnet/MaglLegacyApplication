@@ -8,14 +8,15 @@
 
 namespace MaglLegacyApplicationTest\Service;
 
+use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\Mvc\Controller\ControllerManager;
 use Laminas\View\Model\ViewModel;
 use MaglLegacyApplication\Service\ControllerService;
 use MaglLegacyApplicationTest\Bootstrap;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ControllerServiceTest extends PHPUnit_Framework_TestCase
+class ControllerServiceTest extends TestCase
 {
 
     /**
@@ -23,7 +24,7 @@ class ControllerServiceTest extends PHPUnit_Framework_TestCase
      */
     private $instance;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = Bootstrap::getServiceManager()->get('MaglControllerService');
     }
@@ -38,7 +39,8 @@ class ControllerServiceTest extends PHPUnit_Framework_TestCase
         /** @var ControllerManager $controllerManager */
         $controllerManager = Bootstrap::getServiceManager()->get('ControllerManager');
         $controllerManager->setService('TestController', new TestController());
-        $this->instance->runControllerAction('TestController', 'test');
+        $response = $this->instance->runControllerAction('TestController', 'test');
+        $this->assertInstanceOf(Response::class, $response);
     }
 
 }

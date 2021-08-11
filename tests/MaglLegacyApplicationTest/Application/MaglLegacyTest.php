@@ -8,9 +8,9 @@
 namespace MaglLegacyApplicationTest\Application;
 
 use MaglLegacyApplication\Application\MaglLegacy;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MaglLegacyTest extends PHPUnit_Framework_TestCase
+class MaglLegacyTest extends TestCase
 {
 
     public function testGetInstance()
