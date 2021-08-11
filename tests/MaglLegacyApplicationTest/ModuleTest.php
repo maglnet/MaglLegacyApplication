@@ -3,14 +3,14 @@
 namespace MaglLegacyApplicationTest;
 
 use MaglLegacyApplication\Module;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ModuleTest
  *
  * @author matthias
  */
-class ModuleTest extends PHPUnit_Framework_TestCase
+class ModuleTest extends TestCase
 {
 
     /**
@@ -19,7 +19,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
      */
     private $instance;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new Module();
     }

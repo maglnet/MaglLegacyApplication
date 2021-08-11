@@ -15,7 +15,7 @@ class LegacyControllerTest extends AbstractHttpControllerTestCase
 
     protected $traceError = true;
 
-    public function setUp()
+    public function setUp(): void
     {
         $sm = \MaglLegacyApplicationTest\Bootstrap::getServiceManager();
         $this->setApplicationConfig($sm->get('ApplicationConfig'));
