@@ -17,19 +17,16 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
 }
 
 // Setup autoloading
-if (file_exists('init_autoloader.php')) {
-    require 'init_autoloader.php';
-} elseif (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     include __DIR__ . '/../vendor/autoload.php';
-}
-
-// you do not need this, if MaglLegacyApplication is installed through composer
-if (file_exists(__DIR__ . '/../module/MaglLegacyApplication/src/MaglLegacyApplication/Application/MaglLegacy.php')) {
-    require_once realpath(__DIR__ . '/../module/MaglLegacyApplication/src/MaglLegacyApplication/Application/MaglLegacy.php');
+} else {
+    die('please use composer to install all dependencies.');
 }
 
 if (file_exists('config/application.config.php')) {
     $application = Laminas\Mvc\Application::init(require 'config/application.config.php');
     \MaglLegacyApplication\Application\MaglLegacy::getInstance()->setApplication($application);
     $application->run();
+} else {
+    die('please provide a valid configuration file at "config/application.config.php"');
 }
